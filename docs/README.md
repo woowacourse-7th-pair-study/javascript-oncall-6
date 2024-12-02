@@ -117,3 +117,18 @@
   - 핵심 로직 수현하는 코드와 UI 담당하는 로직 구분
 - 잘못된 입력값에 대해 throw 문으로 예외 발생 => `[ERROR]`로 시작하는 에러 메시지 출력 => 해당 부분부터 입력 다시 받기
 - `MissionUtils` 사용
+
+# 구현 계획
+
+### WorkMonth
+
+- `days`라는 프라이빗 필드에 비상 근무를 배정할 월에 대한 정보를 배열 형태로 담는다.
+- 예시 : `[{month: 5, day: 1, dayOfWeek: "월", isDayOff: false}]`
+
+### Workers
+
+- `names` : 비상 근무자의 이름들을 `Set`으로 담음 (중복 무시하기 위함)
+- `normalDayShift` : 평일의 비상 근무 순번을 배열로 담음
+- `dayOffShift` : 휴일의 비상 근무 순번을 배열로 담음
+- `onCallNormalDay()` : 평일의 비상 근무자를 반환하고, 방금 꺼낸 `normalDayShift[0]`을 해당 배열의 제일 뒤로 옮김 (queue)
+- `onCallDayOff()` : 휴일의 비상 근무자를 반환하고, 방금 꺼낸 `dayOffShift[0]`을 해당 배열의 제일 뒤로 옮김 (queue)

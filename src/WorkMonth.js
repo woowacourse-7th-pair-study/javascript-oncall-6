@@ -8,6 +8,7 @@ class WorkMonth {
   constructor(month, startDayOfWeek) {
     this.#validateMonth(month);
     this.#validateDayOfWeek(startDayOfWeek);
+    // TODO : this.#days에 비상 근무를 배정할 월에 대한 정보 담기
   }
 
   #validateMonth(monthInput) {
