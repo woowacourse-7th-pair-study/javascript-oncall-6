@@ -1,3 +1,5 @@
+import { SHIFT_LENGTH_RANGE } from './rule';
+
 export const INPUT_MESSAGE = {
   start: `비상 근무를 배정할 월과 시작 요일을 입력하세요> `,
   normalDay: `평일 비상 근무 순번대로 사원 닉네임을 입력하세요> `,
@@ -12,4 +14,5 @@ export const ERROR_MESSAGE = {
   dayOfWeekInvalid: '[ERROR] 올바른 요일을 입력해 주세요',
   shiftNoDuplicate:
     '[ERROR] 비상 근무 순번에 이름은 중복될 수 없습니다. 다시 입력해 주세요.',
+  shiftLengthNotInRange: `[ERROR] 비상 근무자는 최소 ${SHIFT_LENGTH_RANGE.min}명 ~ 최대 ${SHIFT_LENGTH_RANGE.max}명까지 가능합니다. 다시 입력해 주세요.`,
 };

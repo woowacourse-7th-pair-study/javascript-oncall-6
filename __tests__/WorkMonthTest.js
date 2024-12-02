@@ -32,8 +32,8 @@ const errorCase = [
 test.each(errorCase)(
   '$caseName 예외가 발생한다.',
   ({ inputs, errorMessage }) => {
-    inputs.forEach((inputs) => {
-      expect(() => new WorkMonth(inputs)).toThrow(errorMessage);
+    inputs.forEach((input) => {
+      expect(() => new WorkMonth(input)).toThrow(errorMessage);
     });
   },
 );
