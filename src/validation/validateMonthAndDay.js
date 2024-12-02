@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '../constants/constants.js';
+import { ERROR_MESSAGE, DAYWEEK } from '../constants/constants.js';
 import parser from '../utils/parser.js';
 
 const isValidLenth = (monthAndDay) => {
@@ -14,13 +14,13 @@ const isMonthRange = (month) => {
 }
 
 const isDayRange = (day) => {
-  return !['일', '월', '화', '수', '목', '금', '토'].includes(day)
+  return !DAYWEEK.includes(day)
 }
 
 /**
  * 월과 요일 유효성 검증하여 반환
  * @param {Array<string>} monthAndDay 
- * @returns {{ month: number, day: string }}
+ * @returns {{ month: number, startDay: string }}
  */
 const validateMonthAndDay = (monthAndDay) => {
   if (
@@ -31,7 +31,7 @@ const validateMonthAndDay = (monthAndDay) => {
   ) {
     throw new Error(ERROR_MESSAGE);
   }
-  return { month: parser.stringToNumber(monthAndDay[0]), day: monthAndDay[1] };
+  return { month: parser.stringToNumber(monthAndDay[0]), startDay: monthAndDay[1] };
 }
 
 export default validateMonthAndDay;

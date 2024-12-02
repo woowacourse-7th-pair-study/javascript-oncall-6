@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import { HOLIDAY } from '../constants/constants.js';
 
 const OutputView = {
   /**
@@ -7,7 +8,9 @@ const OutputView = {
    */
   printSchedule(schedule) {
     schedule.forEach((byDay) => {
-      Console.print(`${byDay.month}월 ${byDay.day}일 ${byDay.dayWeek} ${byDay.name}`);
+      let holiday = '';
+      if (HOLIDAY[byDay.month] && HOLIDAY[byDay.month].includes(byDay.day)) holiday = '(휴일)';
+      Console.print(`${byDay.month}월 ${byDay.day}일 ${byDay.dayWeek}${holiday} ${byDay.name}`);
     });
   },
 

@@ -1,3 +1,4 @@
+import AssignWorkDay from '../domains/AssignWorkDay.js';
 import parser from '../utils/parser.js';
 import validateMonthAndDay from '../validation/validateMonthAndDay.js';
 import validateNickName from '../validation/validateNickName.js';
@@ -6,14 +7,17 @@ import OutputView from '../views/OutputView.js';
 
 class Controller {
   async start() {
-    const { month, day } = await this.#getValidatedMonthAndDay();
+    const { month, startDay } = await this.#getValidatedMonthAndDay();
     const { weekDayEmployees, weekEndEmployees } = await this.#getValidatedWeekdayAndWeekEndEmployees();
     
+    const assignWorkDay = new AssignWorkDay();
+    assignWorkDay.assign(month, startDay, weekDayEmployees, weekEndEmployees);
+    OutputView.printSchedule(assignWorkDay.getSchedule());
   }
 
   /**
    * 월과 요일을 입력 받아 파싱 및 유효성 검증하여 반환한다.
-   * @returns {{ month: number, day: string }}
+   * @returns {{ month: number, startDay: string }}
    */
   async #getValidatedMonthAndDay() {
     try {
