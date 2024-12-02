@@ -47,6 +47,7 @@ class EmergencyDutyScheduler {
       date: schedule.date,
       days: schedule.days,
       staff: schedule.staff,
+      isPrintHolidayString: !schedule.isWeekend && schedule.isHoliday,
     }));
   }
 }
