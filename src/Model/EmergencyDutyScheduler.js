@@ -1,4 +1,3 @@
-import { Console } from '@woowacourse/mission-utils';
 import { DAYS } from '../constant/days.js';
 import { MONTH } from '../constant/month.js';
 import { isHoliday, isWeekend } from '../util/validator.js';

@@ -1,6 +1,7 @@
 class EmergencyDutyMachine {
   #weekdayStaff;
   #weekendStaff;
+  #staffLength;
   #curWeekdayStaffOrder;
   #curWeekendStaffOrder;
   #curWeekdayIndex;
@@ -10,6 +11,7 @@ class EmergencyDutyMachine {
   constructor(weekdayStaff, weekendStaff) {
     this.#weekdayStaff = [...weekdayStaff];
     this.#weekendStaff = [...weekendStaff];
+    this.#staffLength = weekdayStaff.length;
     this.#curWeekdayStaffOrder = [...weekdayStaff];
     this.#curWeekendStaffOrder = [...weekendStaff];
     this.#curWeekdayIndex = 0;
@@ -18,46 +20,73 @@ class EmergencyDutyMachine {
 
   assignDutyStaff(isHoliday) {
     if (isHoliday) {
-      let weekendDutyStaff = this.#curWeekendStaffOrder[this.#curWeekendIndex];
-      if (weekendDutyStaff === this.#prevDutyStaff) {
-        [
-          this.#curWeekendStaffOrder[this.#curWeekendIndex],
-          this.#curWeekendStaffOrder[this.#curWeekendIndex + 1],
-        ] = [
-          this.#curWeekendStaffOrder[this.#curWeekendIndex + 1],
-          this.#curWeekendStaffOrder[this.#curWeekendIndex],
-        ];
-        weekendDutyStaff = this.#curWeekendStaffOrder[this.#curWeekendIndex];
-      }
-      this.#curWeekendIndex += 1;
-      if (this.#curWeekendIndex === this.#curWeekendStaffOrder.length) {
-        this.#curWeekendIndex = 0;
-        this.#curWeekendStaffOrder = [...this.#weekendStaff];
-      }
-
-      this.#prevDutyStaff = weekendDutyStaff;
-      return weekendDutyStaff;
+      return this.#getHolidayStaff();
     }
 
+    return this.#getNonHolidayStaff();
+  }
+
+  #getHolidayStaff() {
+    let weekendDutyStaff = this.#curWeekendStaffOrder[this.#curWeekendIndex];
+    if (weekendDutyStaff === this.#prevDutyStaff) {
+      this.#curWeekendStaffOrder = this.#switchOrder(
+        this.#curWeekendStaffOrder,
+        this.#curWeekendIndex,
+      );
+      weekendDutyStaff = this.#curWeekendStaffOrder[this.#curWeekendIndex];
+    }
+    this.#curWeekendIndex = this.#updateIndex(true);
+    this.#curWeekendStaffOrder = this.#updateOrder(true);
+
+    this.#prevDutyStaff = weekendDutyStaff;
+    return weekendDutyStaff;
+  }
+
+  #getNonHolidayStaff() {
     let weekdayDutyStaff = this.#curWeekdayStaffOrder[this.#curWeekdayIndex];
     if (weekdayDutyStaff === this.#prevDutyStaff) {
-      [
-        this.#curWeekdayStaffOrder[this.#curWeekdayIndex],
-        this.#curWeekdayStaffOrder[this.#curWeekdayIndex + 1],
-      ] = [
-        this.#curWeekdayStaffOrder[this.#curWeekdayIndex + 1],
-        this.#curWeekdayStaffOrder[this.#curWeekdayIndex],
-      ];
+      this.#curWeekdayStaffOrder = this.#switchOrder(
+        this.#curWeekdayStaffOrder,
+        this.#curWeekdayIndex,
+      );
       weekdayDutyStaff = this.#curWeekdayStaffOrder[this.#curWeekdayIndex];
     }
-    this.#curWeekdayIndex += 1;
-    if (this.#curWeekdayIndex === this.#curWeekdayStaffOrder.length) {
-      this.#curWeekdayIndex = 0;
-      this.#curWeekdayStaffOrder = [...this.#weekdayStaff];
-    }
+    this.#curWeekdayIndex = this.#updateIndex(false);
+    this.#curWeekdayStaffOrder = this.#updateOrder(false);
 
     this.#prevDutyStaff = weekdayDutyStaff;
     return weekdayDutyStaff;
+  }
+
+  #switchOrder(order, index) {
+    const copyOrder = [...order];
+    [copyOrder[index], copyOrder[index + 1]] = [
+      copyOrder[index + 1],
+      copyOrder[index],
+    ];
+
+    return copyOrder;
+  }
+
+  #updateIndex(isHoliday) {
+    let nextIndex;
+    if (isHoliday) {
+      nextIndex = this.#curWeekendIndex + 1;
+    } else {
+      nextIndex = this.#curWeekdayIndex + 1;
+    }
+
+    if (nextIndex === this.#staffLength) return 0;
+    return nextIndex;
+  }
+
+  #updateOrder(isHoliday) {
+    if (isHoliday) {
+      if (this.#curWeekendIndex === 0) return [...this.#weekendStaff];
+      return this.#curWeekendStaffOrder;
+    }
+    if (this.#curWeekdayIndex === 0) return [...this.#weekdayStaff];
+    return this.#curWeekdayStaffOrder;
   }
 }
 
