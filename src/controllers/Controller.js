@@ -37,19 +37,30 @@ class Controller {
    */
   async #getValidatedWeekdayAndWeekEndEmployees() {
     try {
-      const weekDayEmployees = await InputView.readWeekDay();
-      const parsedWeekDayEmployees = parser.deleteEmptyValue(parser.stringToArray(weekDayEmployees));
-      validateNickName(parsedWeekDayEmployees);
-
-      const weekEndEmployees = await InputView.readWeekEnd();
-      const parsedWeekEndEmployees = parser.deleteEmptyValue(parser.stringToArray(weekEndEmployees));
-      validateNickName(parsedWeekEndEmployees);
+      const parsedWeekDayEmployees = await this.#validateWeekDayEmployees();
+      const parsedWeekEndEmployees = await this.#validateWeekEndEmployees();
 
       return { weekDayEmployees: parsedWeekDayEmployees, weekEndEmployees: parsedWeekEndEmployees };
     } catch (error) {
       OutputView.printErrorMessage(error.message);
       return this.#getValidatedWeekdayAndWeekEndEmployees();
     }
+  }
+
+  async #validateWeekDayEmployees() {
+    const weekDayEmployees = await InputView.readWeekDay();
+    const parsedWeekDayEmployees = parser.deleteEmptyValue(parser.stringToArray(weekDayEmployees));
+    validateNickName(parsedWeekDayEmployees);
+
+    return parsedWeekDayEmployees;
+  }
+
+  async #validateWeekEndEmployees() {
+    const weekEndEmployees = await InputView.readWeekEnd();
+    const parsedWeekEndEmployees = parser.deleteEmptyValue(parser.stringToArray(weekEndEmployees));
+    validateNickName(parsedWeekEndEmployees);
+
+    return parsedWeekEndEmployees;
   }
 }
 
