@@ -8,29 +8,33 @@ class EmergencyDutyScheduler {
 
   constructor(month, startDays) {
     this.#dutyMonth = month;
-    this.#scheduler = this.#createScheduler(month, startDays);
+    this.#scheduler = [];
+    this.#createScheduler(month, startDays);
   }
 
   #createScheduler(month, startDays) {
-    const scheduler = [];
     const { start: startDate, end: endDate } = MONTH[month];
     const startDaysIndex = DAYS.indexOf(startDays);
 
     for (let curDate = startDate; curDate <= endDate; curDate += 1) {
       const curDaysIndex = (startDaysIndex + (curDate - 1)) % 7;
-      const isCurDateIsWeekend = isWeekend(DAYS[curDaysIndex]);
-      const isCurDateIsHoliday = isHoliday(this.#dutyMonth, curDate);
-
-      scheduler.push({
-        date: curDate,
-        days: DAYS[curDaysIndex],
-        isWeekend: isCurDateIsWeekend,
-        isHoliday: isCurDateIsWeekend || isCurDateIsHoliday,
-        staff: '',
-      });
+      this.#pushSchedule(
+        curDate,
+        curDaysIndex,
+        isWeekend(DAYS[curDaysIndex]),
+        isHoliday(this.#dutyMonth, curDate),
+      );
     }
+  }
 
-    return scheduler;
+  #pushSchedule(curDate, curDaysIndex, isCurDateIsWeekend, isCurDateIsHoliday) {
+    this.#scheduler.push({
+      date: curDate,
+      days: DAYS[curDaysIndex],
+      isWeekend: isCurDateIsWeekend,
+      isHoliday: isCurDateIsWeekend || isCurDateIsHoliday,
+      staff: '',
+    });
   }
 
   assignMonthDutyStaff(dutyMachine) {
