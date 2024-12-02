@@ -6,9 +6,8 @@ const isDuplicate = (employees) => {
 }
 
 const isNameLength = (employees) => {
-  return employees.forEach((name) => {
-    name.length < 1 || name.length > 5;
-  });
+  const isOverLength = (name) => name.length < 1 || name.length > 5;
+  return employees.some(isOverLength);
 }
 
 const isRange = (employees) => {
