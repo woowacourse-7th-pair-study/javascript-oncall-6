@@ -13,7 +13,7 @@ class EmergencyDutyController {
     const startMonthAndDay = await this.#getValidatedStartMonthAndDay();
 
     const weekdayStaff = await this.#getValidatedWeekdayStaff();
-    const weekendStaff = await this.#getValidatedWeekendStaff();
+    const weekendStaff = await this.#getValidatedWeekendStaff(weekdayStaff);
 
     Console.print(startMonthAndDay);
     Console.print(weekdayStaff);
@@ -36,10 +36,10 @@ class EmergencyDutyController {
     });
   }
 
-  #getValidatedWeekendStaff() {
+  #getValidatedWeekendStaff(weekdayStaff) {
     return Input.getWeekendStaffInput()((input) => {
       const parsedInput = parseInputWithSeparator(input, INPUT_SEPARATOR);
-      validateWeekendStaffInput(parsedInput);
+      validateWeekendStaffInput(parsedInput, weekdayStaff);
       return parsedInput;
     });
   }
