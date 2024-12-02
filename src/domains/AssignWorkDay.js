@@ -18,8 +18,6 @@ class AssignWorkDay {
    * 입력한 순번대로 비상 근무일을 배정한다.
    * @param {number} month 1 ~ 12
    * @param {string} startDay 월 ~ 일 
-   * @param {Array<string>} weekDayEmployees [ '누구', '누구', ... ]
-   * @param {Array<string>} weekEndEmployees [ '누구', '누구', ... ]
    */
   assign(month, startDay) {
     let curDayWeekIdx = DAYWEEK.indexOf(startDay); // 현재 요일 인덱스
