@@ -10,11 +10,11 @@ export const validateWeekendStaffInput = (staffNamesInput, weekdayStaff) => {
   if (isDuplicate(staffNamesInput))
     throwWoowaError(ERROR_MESSAGE.duplicateStaffName);
 
-  if (!isArrayElementSame(staffNamesInput, weekdayStaff))
-    throwWoowaError(ERROR_MESSAGE.differentStaffList);
-
   staffNamesInput.forEach((staffName) => {
     if (!isInRange(staffName.length, 1, 5))
       throwWoowaError(ERROR_MESSAGE.notInRangeStaffNameLength);
   });
+
+  if (!isArrayElementSame(staffNamesInput, weekdayStaff))
+    throwWoowaError(ERROR_MESSAGE.differentStaffList);
 };
