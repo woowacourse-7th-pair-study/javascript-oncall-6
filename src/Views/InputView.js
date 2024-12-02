@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import ValidateModules from '../Utils/ValidateModules';
+import ValidateModules from '../Utils/ValidateModules.js';
 
 class InputView {
   static async getMonthAndDay() {
@@ -15,7 +15,7 @@ class InputView {
 
       return { month, day };
     } catch (error) {
-      Console.print(error.me);
+      Console.print(error.message);
 
       return await this.getMonthAndDay();
     }
