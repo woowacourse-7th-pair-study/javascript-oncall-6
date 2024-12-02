@@ -19,10 +19,7 @@ class EmergencyDutyController {
 
     const calculator = new EmergencyDutyCalculator(weekdayStaff, weekendStaff);
 
-    Console.print(calculator.assignDutyStaff(true));
-    Console.print(calculator.assignDutyStaff(true));
-    Console.print(calculator.assignDutyStaff(false));
-    Console.print(calculator.assignDutyStaff(false));
+    scheduler.assignMonthDutyStaff(calculator);
   }
 
   #getValidatedStartMonthAndDays() {
