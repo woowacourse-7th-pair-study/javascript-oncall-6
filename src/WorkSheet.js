@@ -15,7 +15,7 @@ class WorkSheet {
     this.#validateMonth(parsedMonth);
     this.#validateDayOfWeek(startDayOfWeek);
 
-    this.#initDays(parsedMonth, startDayOfWeek);
+    this.#initWorkSheet(parsedMonth, startDayOfWeek);
   }
 
   #validateInput(input) {
@@ -33,7 +33,7 @@ class WorkSheet {
     if (!DAY_OF_WEEK.includes(dayOfWeekInput)) throw new Error(ERROR_MESSAGE.dayOfWeekInvalid);
   }
 
-  #initDays(month, startDayOfWeek) {
+  #initWorkSheet(month, startDayOfWeek) {
     const daysLength = MONTH_LENGTH[month];
     const startDayOfWeekIndex = DAY_OF_WEEK.indexOf(startDayOfWeek);
     this.#workSheet = Array.from({ length: daysLength }, (_, i) => {
@@ -41,6 +41,7 @@ class WorkSheet {
       const dayOfWeekIndex = (startDayOfWeekIndex + i) % DAY_OF_WEEK.length;
       const dayOfWeek = DAY_OF_WEEK[dayOfWeekIndex];
       const isDayOff = HOLIDAY[month].includes(day) || dayOfWeek === "토" || dayOfWeek === "일";
+
       return { month, day, dayOfWeek, isDayOff, worker: "" };
     });
   }
