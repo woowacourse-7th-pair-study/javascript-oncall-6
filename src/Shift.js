@@ -8,6 +8,7 @@ class Shift {
   constructor(input) {
     const names = splitStringAndTrim(input, ',');
     this.#validateNames(names);
+    this.#shift = [...names];
   }
 
   #validateNames(names) {

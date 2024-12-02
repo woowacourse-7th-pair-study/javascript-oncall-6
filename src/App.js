@@ -1,5 +1,6 @@
 import View from './View.js';
 import WorkMonth from './WorkMonth.js';
+import Shift from './Shift.js';
 
 class App {
   #workMonth;
@@ -7,7 +8,9 @@ class App {
     await this.#getStartInfo();
 
     const normalDayInput = await View.inputNormalDayShift();
+    const normalDayShift = new Shift(normalDayInput);
     const dayOffInput = await View.inputDayOffShift();
+    const dayOffShift = new Shift(dayOffInput);
   }
 
   async #getStartInfo() {
