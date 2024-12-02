@@ -24,7 +24,7 @@ class App {
       this.#workSheet = new WorkSheet(startInput);
     } catch (error) {
       View.printMessage(error.message);
-      await this.#getStartInfo();
+      return await this.#getStartInfo();
     }
   }
 
@@ -37,7 +37,7 @@ class App {
       this.#dayOffShift = new Shift(dayOffInput);
     } catch (error) {
       View.printMessage(error.message);
-      await this.#getShift();
+      return await this.#getShift();
     }
   }
 }
