@@ -22,29 +22,29 @@ class AssignWorkDay {
     for (let curDay = 1; curDay <= LAST_DAY[month]; curDay++) {
       let name = '';
 
-      // 휴일 | 공휴일
+      // 휴일 or 공휴일
       if (
         WEEKEND.includes(DAYWEEK[curDayWeekIdx])
         || (HOLIDAY[month] && HOLIDAY[month].includes(curDay))
       ) {
         name = weekEndEmployeesArray.shift();
-        if (this.#schedule.length > 0 && this.#schedule[this.#schedule.length - 1].name === name) {
-          let nextEmployeeName = weekEndEmployeesArray.shift(); // 다음 사원 이름 추출
-          weekEndEmployeesArray.unshift(name); // 현재 name 다시 앞에 넣기
-          name = nextEmployeeName; // 다음 사원을 name에 넣기
+        if (this.#checkLastName(name)) {
+          let nextEmployeeName = weekEndEmployeesArray.shift();
+          weekEndEmployeesArray.unshift(name);
+          name = nextEmployeeName;
         }
-        weekEndEmployeesArray.push(name); // name 을 다시 배열 맨 뒤에 삽입
+        weekEndEmployeesArray.push(name);
       }
 
       // 평일
       else if (WEEKDAY.includes(DAYWEEK[curDayWeekIdx])) {
         name = weekDayEmployeesArray.shift();
-        if (this.#schedule.length > 0 && this.#schedule[this.#schedule.length - 1].name === name) {
-          let nextEmployeeName = weekDayEmployeesArray.shift(); // 다음 사원 이름 추출
-          weekDayEmployeesArray.unshift(name); // 현재 name 다시 앞에 넣기
-          name = nextEmployeeName; // 다음 사원을 name에 넣기
+        if (this.#checkLastName(name)) {
+          let nextEmployeeName = weekDayEmployeesArray.shift();
+          weekDayEmployeesArray.unshift(name);
+          name = nextEmployeeName;
         }
-        weekDayEmployeesArray.push(name); // name 을 다시 배열 맨 뒤에 삽입
+        weekDayEmployeesArray.push(name);
       }
 
       // 근무 일정 추가
@@ -54,6 +54,15 @@ class AssignWorkDay {
       curDayWeekIdx += 1;
       if (curDayWeekIdx >= DAYWEEK.length) curDayWeekIdx = 0;
     }
+  }
+
+  /**
+   * 최근에 배정된 근무자 이름과 동일한지 확인
+   * @param {string} name 
+   * @returns {boolean}
+   */
+  #checkLastName(name) {
+    return this.#schedule.length > 0 && this.#schedule[this.#schedule.length - 1].name === name;
   }
 }
 
