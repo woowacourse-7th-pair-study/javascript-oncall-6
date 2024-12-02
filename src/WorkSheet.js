@@ -1,6 +1,6 @@
 import { DAY_OF_WEEK, HOLIDAY, MONTH_LENGTH } from "./constant/daysInfo.js";
 import { ERROR_MESSAGE } from "./constant/message.js";
-import { MONTH_RANGE } from "./constant/rule.js";
+import { INPUT_SEPARATOR, MONTH_RANGE } from "./constant/rule.js";
 import { isInRange, isNumber, splitStringAndTrim, getDayOffString } from "./util.js";
 
 class WorkSheet {
@@ -9,7 +9,7 @@ class WorkSheet {
   constructor(input) {
     this.#validateInput(input);
 
-    const [month, startDayOfWeek] = splitStringAndTrim(input, ",");
+    const [month, startDayOfWeek] = splitStringAndTrim(input, INPUT_SEPARATOR);
     const parsedMonth = Number(month);
 
     this.#validateMonth(parsedMonth);
@@ -20,7 +20,8 @@ class WorkSheet {
 
   #validateInput(input) {
     if (input.trim() === "") throw new Error(ERROR_MESSAGE.noBlank);
-    if (splitStringAndTrim(input, ",").length !== 2) throw new Error(ERROR_MESSAGE.wrongInput);
+    if (splitStringAndTrim(input, INPUT_SEPARATOR).length !== 2)
+      throw new Error(ERROR_MESSAGE.wrongInput);
   }
 
   #validateMonth(parsedMonth) {
