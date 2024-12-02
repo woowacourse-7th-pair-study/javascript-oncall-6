@@ -22,6 +22,20 @@ class Shift {
         throw new Error(ERROR_MESSAGE.workerNameLengthOverMax);
     });
   }
+
+  getOnCallWorker() {
+    return this.#shift[0];
+  }
+
+  getNextOnCallWorker() {
+    return this.#shift[1];
+  }
+
+  onCall(workerName) {
+    const workerNameIndex = this.#shift.indexOf(workerName);
+    this.#shift.splice(workerNameIndex, 1);
+    this.#shift.push(workerName);
+  }
 }
 
 export default Shift;

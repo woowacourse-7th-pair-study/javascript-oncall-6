@@ -10,6 +10,8 @@ class App {
   async run() {
     await this.#getStartInfo();
     await this.#getShift();
+
+    this.#workMonth.assignWorkers(this.#normalDayShift, this.#dayOffShift);
   }
 
   async #getStartInfo() {

@@ -45,8 +45,38 @@ class WorkMonth {
         HOLIDAY[month].includes(day) ||
         dayOfWeek === '토' ||
         dayOfWeek === '일';
-      return { month, day, dayOfWeek, isDayOff };
+      return { month, day, dayOfWeek, isDayOff, worker: '' };
     });
+  }
+
+  assignWorkers(normalDayShift, dayOffShift) {
+    this.#workMonthInfo.forEach(({ isDayOff }, i) => {
+      const yesterdayWorker = i - 1 >= 0 && this.#workMonthInfo[i - 1].worker;
+
+      if (!isDayOff) {
+        const onCallWorker = this.#getOnCallWorker(
+          normalDayShift,
+          yesterdayWorker,
+        );
+        normalDayShift.onCall(onCallWorker);
+        this.#workMonthInfo[i].worker = onCallWorker;
+      } else {
+        const onCallWorker = this.#getOnCallWorker(
+          dayOffShift,
+          yesterdayWorker,
+        );
+        dayOffShift.onCall(onCallWorker);
+        this.#workMonthInfo[i].worker = onCallWorker;
+      }
+    });
+  }
+
+  #getOnCallWorker(shift, yesterdayWorker) {
+    const onCallWorker = shift.getOnCallWorker();
+    if (onCallWorker === yesterdayWorker) {
+      return shift.getNextOnCallWorker();
+    }
+    return onCallWorker;
   }
 }
 
