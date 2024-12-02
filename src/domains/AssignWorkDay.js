@@ -8,7 +8,7 @@ class AssignWorkDay {
   }
 
   /**
-   * 
+   * 입력한 순번대로 비상 근무일을 배정한다.
    * @param {number} month 1 ~ 12
    * @param {string} startDay 월 ~ 일 
    * @param {Array<string>} weekDayEmployees [ '누구', '누구', ... ]

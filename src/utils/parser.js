@@ -1,5 +1,5 @@
 /**
- * 
+ * 문자열을 숫자로 변환한다.
  * @param {string} string 
  * @returns {number}
  */
@@ -8,7 +8,7 @@ const stringToNumber = (string) => {
 }
 
 /**
- * 
+ * 문자열을 문자열 배열로 변환한다.
  * @param {string} string 
  * @returns {Array<string>}
  */
