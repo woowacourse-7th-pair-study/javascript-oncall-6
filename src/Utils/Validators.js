@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE, SERVICE_CONSTANTS } from '../constants.js';
+import { ERROR_MESSAGE, SERVICE_CONSTANTS, WEEK_NAME } from '../constants.js';
 import errorHandler from './ErrorHandler.js';
 
 class Validators {
@@ -21,9 +21,12 @@ class Validators {
     errorHandler(new Set(value).size != value.length, ERROR_MESSAGE.duplicatedWorkerName);
   }
 
+  static checkIsBlank(value) {
+    errorHandler(value === '', ERROR_MESSAGE.emptyValue);
+  }
   static checkNameLength(value) {
     errorHandler(
-      0 == value.length || value.length > workerNameLengthLimit,
+      0 == value.length || value.length > SERVICE_CONSTANTS.workerNameLengthLimit,
       ERROR_MESSAGE.exceedNameLength,
     );
   }

@@ -11,10 +11,12 @@ class ValidateModules {
   }
 
   static checkWorkers(value) {
+    Validators.checkIsBlank(value);
+
     const workers = value.split(',');
 
-    Validators.checkWorkerCount(value);
-    Validators.checkDuplicated(value);
+    Validators.checkWorkerCount(workers);
+    Validators.checkDuplicated(workers);
 
     workers.forEach((worker) => {
       Validators.checkNameLength(worker);
