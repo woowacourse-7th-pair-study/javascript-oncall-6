@@ -14,7 +14,13 @@ class EmergencyDutyController {
       return [Number(parsedInput[0]), parsedInput[1]];
     });
 
+    const weekdayStaff = await Input.getWeekdayStaffInput()((input) => {
+      const parsedInput = parseInputWithSeparator(input, INPUT_SEPARATOR);
+      return parsedInput;
+    });
+
     Console.print(startMonthAndDay);
+    Console.print(weekdayStaff);
   }
 }
 
