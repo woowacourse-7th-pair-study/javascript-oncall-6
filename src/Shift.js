@@ -13,9 +13,7 @@ class Shift {
 
   #validateNames(names) {
     if (isDuplicate(names)) throw new Error(ERROR_MESSAGE.shiftNoDuplicate);
-    if (
-      !isInRange(names.length, SHIFT_LENGTH_RANGE.min, SHIFT_LENGTH_RANGE.max)
-    )
+    if (!isInRange(names.length, SHIFT_LENGTH_RANGE.min, SHIFT_LENGTH_RANGE.max))
       throw new Error(ERROR_MESSAGE.shiftLengthNotInRange);
     names.forEach((name) => {
       if (name.length > WORKER_NAME_LENGTH_MAX)
