@@ -24,10 +24,8 @@ class InputView {
   static async getWeekDayAndHolidayWorkers() {
     try {
       const weekDayWorkers = await this.#getWorkers('평일');
-      ValidateModules.checkWorkers(weekDayWorkers);
 
       const holidayWorkers = await this.#getWorkers('휴일');
-      ValidateModules.checkWorkers(holidayWorkers);
 
       return { weekDayWorkers, holidayWorkers };
     } catch (error) {
@@ -39,10 +37,10 @@ class InputView {
 
   static async #getWorkers(dayType) {
     const userInput = await Console.readLineAsync(
-      `${dayType} 비상 근무 순번대로 사원 닉네임을 입력하세요>`,
+      `${dayType} 비상 근무 순번대로 사원 닉네임을 입력하세요> `,
     );
 
-    // TODO: Validation
+    ValidateModules.checkWorkers(userInput);
 
     const workers = userInput.split(',');
 
