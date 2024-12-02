@@ -121,10 +121,11 @@
 
 # 구현 계획
 
-### WorkMonth
+### WorkSheet
 
 - `days`라는 프라이빗 필드에 비상 근무를 배정할 월에 대한 정보를 배열 형태로 담는다.
-- 예시 : `[{month: 5, day: 1, dayOfWeek: "월", isDayOff: false}]`
+- 예시 : `[{month: 5, day: 1, dayOfWeek: "월", isDayOff: false, worker: ""}]`
+- 추후 `assign` 메서드를 통해 `worker`를 배치
 
 ### Workers
 

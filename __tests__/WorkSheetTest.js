@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from '../src/constant/message.js';
-import WorkMonth from '../src/WorkMonth.js';
+import WorkSheet from '../src/WorkSheet.js';
 
 const errorCase = [
   {
@@ -29,11 +29,8 @@ const errorCase = [
   },
 ];
 
-test.each(errorCase)(
-  '$caseName 예외가 발생한다.',
-  ({ inputs, errorMessage }) => {
-    inputs.forEach((input) => {
-      expect(() => new WorkMonth(input)).toThrow(errorMessage);
-    });
-  },
-);
+test.each(errorCase)('$caseName 예외가 발생한다.', ({ inputs, errorMessage }) => {
+  inputs.forEach((input) => {
+    expect(() => new WorkSheet(input)).toThrow(errorMessage);
+  });
+});

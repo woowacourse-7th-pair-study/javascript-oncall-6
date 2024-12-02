@@ -1,9 +1,9 @@
 import View from "./View.js";
-import WorkMonth from "./WorkMonth.js";
+import WorkSheet from "./WorkSheet.js";
 import Shift from "./Shift.js";
 
 class App {
-  #workMonth;
+  #workSheet;
   #normalDayShift;
   #dayOffShift;
 
@@ -12,16 +12,16 @@ class App {
 
     await this.#getShift();
 
-    this.#workMonth.assignWorkers(this.#normalDayShift, this.#dayOffShift);
+    this.#workSheet.assignWorkers(this.#normalDayShift, this.#dayOffShift);
 
-    const result = this.#workMonth.getWorkSheetForPrint();
+    const result = this.#workSheet.getWorkSheetForPrint();
     View.printMessage(result);
   }
 
   async #getStartInfo() {
     try {
       const startInput = await View.inputStart();
-      this.#workMonth = new WorkMonth(startInput);
+      this.#workSheet = new WorkSheet(startInput);
     } catch (error) {
       View.printMessage(error.message);
       await this.#getStartInfo();
