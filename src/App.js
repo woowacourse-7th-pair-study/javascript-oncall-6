@@ -4,13 +4,12 @@ import Shift from './Shift.js';
 
 class App {
   #workMonth;
+  #normalDayShift;
+  #dayOffShift;
+
   async run() {
     await this.#getStartInfo();
-
-    const normalDayInput = await View.inputNormalDayShift();
-    const normalDayShift = new Shift(normalDayInput);
-    const dayOffInput = await View.inputDayOffShift();
-    const dayOffShift = new Shift(dayOffInput);
+    await this.#getShift();
   }
 
   async #getStartInfo() {
@@ -20,6 +19,19 @@ class App {
     } catch (error) {
       View.printMessage(error.message);
       await this.#getStartInfo();
+    }
+  }
+
+  async #getShift() {
+    try {
+      const normalDayInput = await View.inputNormalDayShift();
+      this.#normalDayShift = new Shift(normalDayInput);
+
+      const dayOffInput = await View.inputDayOffShift();
+      this.#dayOffShift = new Shift(dayOffInput);
+    } catch (error) {
+      View.printMessage(error.message);
+      await this.#getShift();
     }
   }
 }
