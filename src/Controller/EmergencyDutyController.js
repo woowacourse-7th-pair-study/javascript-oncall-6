@@ -7,6 +7,7 @@ import { validateWeekdayStaffInput } from '../validator/validateWeekdayStaffInpu
 import { validateWeekendStaffInput } from '../validator/validateWeekendStaffInput.js';
 import EmergencyDutyCalculator from '../Model/EmergencyDutyMachine.js';
 import EmergencyDutyScheduler from '../Model/EmergencyDutyScheduler.js';
+import Output from '../View/Output.js';
 
 class EmergencyDutyController {
   async init() {
@@ -20,6 +21,9 @@ class EmergencyDutyController {
     const calculator = new EmergencyDutyCalculator(weekdayStaff, weekendStaff);
 
     scheduler.assignMonthDutyStaff(calculator);
+
+    const dutySchedule = scheduler.getScheduleForPrint();
+    Output.printEmergencyDutySchedule(dutySchedule);
   }
 
   #getValidatedStartMonthAndDays() {

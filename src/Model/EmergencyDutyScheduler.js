@@ -39,8 +39,15 @@ class EmergencyDutyScheduler {
       const assignedStaff = dutyMachine.assignDutyStaff(schedule.isHoliday);
       return { ...schedule, staff: assignedStaff };
     });
+  }
 
-    Console.print(this.#scheduler);
+  getScheduleForPrint() {
+    return this.#scheduler.map((schedule) => ({
+      month: this.#dutyMonth,
+      date: schedule.date,
+      days: schedule.days,
+      staff: schedule.staff,
+    }));
   }
 }
 
