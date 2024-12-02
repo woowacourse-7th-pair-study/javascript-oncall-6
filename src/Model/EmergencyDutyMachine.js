@@ -3,6 +3,7 @@ class EmergencyDutyMachine {
   #weekendStaff;
   #curWeekdayIndex;
   #curWeekendIndex;
+  #prevDutyStaff;
 
   constructor(weekdayStaff, weekendStaff) {
     this.#weekdayStaff = weekdayStaff;
@@ -17,6 +18,7 @@ class EmergencyDutyMachine {
       this.#curWeekendIndex += 1;
       if (this.#curWeekendIndex === this.#weekendStaff.length)
         this.#curWeekendIndex = 0;
+      this.#prevDutyStaff = weekendDutyStaff;
       return weekendDutyStaff;
     }
 
@@ -24,6 +26,7 @@ class EmergencyDutyMachine {
     this.#curWeekdayIndex += 1;
     if (this.#curWeekdayIndex === this.#weekdayStaff.length)
       this.#curWeekdayIndex = 0;
+    this.#prevDutyStaff = weekdayDutyStaff;
     return weekdayDutyStaff;
   }
 }
