@@ -34,7 +34,6 @@ class AssignWorkDay {
           name = nextEmployeeName; // 다음 사원을 name에 넣기
         }
         weekEndEmployeesArray.push(name); // name 을 다시 배열 맨 뒤에 삽입
-        
       }
 
       // 평일
