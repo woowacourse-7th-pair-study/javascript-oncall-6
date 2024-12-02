@@ -6,12 +6,16 @@ const isDuplicate = (employees) => {
 }
 
 const isNameLength = (employees) => {
-  const isOverLength = (name) => name.length < 1 || name.length > 5;
+  const minNameLength = 1;
+  const maxNameLength = 5;
+  const isOverLength = (name) => name.length < minNameLength || name.length > maxNameLength;
   return employees.some(isOverLength);
 }
 
 const isRange = (employees) => {
-  return employees.length < 5 || employees.length > 35;
+  const minNumOfEmployees = 5;
+  const maxNumOfEmployees = 35;
+  return employees.length < minNumOfEmployees || employees.length > maxNumOfEmployees;
 }
 
 /**

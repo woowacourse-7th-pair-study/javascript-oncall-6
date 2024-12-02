@@ -2,7 +2,8 @@ import { ERROR_MESSAGE, DAYWEEK } from '../constants/constants.js';
 import parser from '../utils/parser.js';
 
 const isValidLenth = (monthAndDay) => {
-  return monthAndDay.length !== 2;
+  const twoElements = 2;
+  return monthAndDay.length !== twoElements;
 }
 
 const isNumber = (month) => {
@@ -10,7 +11,9 @@ const isNumber = (month) => {
 }
 
 const isMonthRange = (month) => {
-  return month < 1 || month > 12;
+  const firstMonth = 1;
+  const lastMonth = 12;
+  return month < firstMonth || month > lastMonth;
 }
 
 const isDayRange = (day) => {
