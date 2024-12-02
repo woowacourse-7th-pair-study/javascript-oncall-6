@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils';
 import { DAYS } from '../constant/days.js';
 import { MONTH } from '../constant/month.js';
-import { isWeekend } from '../util/validator.js';
+import { isHoliday, isWeekend } from '../util/validator.js';
 
 class EmergencyDutyScheduler {
   #dutyMonth;
@@ -20,12 +20,13 @@ class EmergencyDutyScheduler {
     for (let curDate = startDate; curDate <= endDate; curDate += 1) {
       const curDaysIndex = (startDaysIndex + (curDate - 1)) % 7;
       const isCurDateIsWeekend = isWeekend(DAYS[curDaysIndex]);
+      const isCurDateIsHoliday = isHoliday(this.#dutyMonth, curDate);
 
       scheduler.push({
         date: curDate,
         days: DAYS[curDaysIndex],
         isWeekend: isCurDateIsWeekend,
-        isHoliday: isCurDateIsWeekend,
+        isHoliday: isCurDateIsWeekend || isCurDateIsHoliday,
         staff: '',
       });
     }

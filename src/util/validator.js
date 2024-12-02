@@ -1,4 +1,5 @@
 import { DAYS } from '../constant/days.js';
+import { HOLIDAY } from '../constant/holiday.js';
 
 export const isNumber = (value) => !Number.isNaN(value);
 
@@ -20,3 +21,9 @@ export const isWeekend = (days) => {
 
   return daysIndex === 6 || daysIndex === 0;
 };
+
+export const isHoliday = (month, day) =>
+  HOLIDAY.some(
+    ({ month: holidayMonth, day: holidayDay }) =>
+      holidayMonth === month && holidayDay === day,
+  );
