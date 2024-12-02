@@ -1,14 +1,16 @@
 import EmergencyDutyMachine from '../src/Model/EmergencyDutyMachine.js';
 import EmergencyDutyScheduler from '../src/Model/EmergencyDutyScheduler.js';
 
+const weekdayStaff =
+  '허브,쥬니,말랑,라온,헤나,우코,에단,수달,파워,히이로,마코,슬링키,모디,연어,깃짱,리오,고니,박스터,달리,조이,노아이즈,도이,도치,홍고,스캇,폴로,해시,로지,첵스,아이크,우가,푸만능,애쉬,로이스,오션';
+
+const weekendStaff =
+  '오션,로이스,애쉬,푸만능,우가,아이크,첵스,로지,해시,폴로,스캇,홍고,도치,도이,노아이즈,조이,달리,박스터,고니,리오,깃짱,연어,모디,슬링키,마코,히이로,파워,수달,에단,우코,헤나,라온,말랑,쥬니,허브';
+
 const testCases = [
   {
     dutyMonth: 10,
     startDays: '수',
-    weekdayStaff:
-      '허브,쥬니,말랑,라온,헤나,우코,에단,수달,파워,히이로,마코,슬링키,모디,연어,깃짱,리오,고니,박스터,달리,조이,노아이즈,도이,도치,홍고,스캇,폴로,해시,로지,첵스,아이크,우가,푸만능,애쉬,로이스,오션',
-    weekendStaff:
-      '오션,로이스,애쉬,푸만능,우가,아이크,첵스,로지,해시,폴로,스캇,홍고,도치,도이,노아이즈,조이,달리,박스터,고니,리오,깃짱,연어,모디,슬링키,마코,히이로,파워,수달,에단,우코,헤나,라온,말랑,쥬니,허브',
     expected: [
       '10월 1일 수 허브',
       '10월 2일 목 쥬니',
@@ -46,10 +48,6 @@ const testCases = [
   {
     dutyMonth: 12,
     startDays: '금',
-    weekdayStaff:
-      '허브,쥬니,말랑,라온,헤나,우코,에단,수달,파워,히이로,마코,슬링키,모디,연어,깃짱,리오,고니,박스터,달리,조이,노아이즈,도이,도치,홍고,스캇,폴로,해시,로지,첵스,아이크,우가,푸만능,애쉬,로이스,오션',
-    weekendStaff:
-      '오션,로이스,애쉬,푸만능,우가,아이크,첵스,로지,해시,폴로,스캇,홍고,도치,도이,노아이즈,조이,달리,박스터,고니,리오,깃짱,연어,모디,슬링키,마코,히이로,파워,수달,에단,우코,헤나,라온,말랑,쥬니,허브',
     expected: [
       '12월 1일 금 허브',
       '12월 2일 토 오션',
@@ -89,7 +87,7 @@ const testCases = [
 describe('근무 배정 기계 객체 테스트', () => {
   test.each(testCases)(
     'assignDutyStaff 근무 배정 메서드가 잘 동작하는지 확인한다.',
-    ({ dutyMonth, startDays, weekdayStaff, weekendStaff, expected }) => {
+    ({ dutyMonth, startDays, expected }) => {
       const scheduler = new EmergencyDutyScheduler(dutyMonth, startDays);
       const machine = new EmergencyDutyMachine(
         weekdayStaff.split(','),
