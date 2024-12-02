@@ -123,3 +123,42 @@ test("기능 테스트", async () => {
     ],
   });
 });
+
+test("추가 기능 테스트", async () => {
+  await run({
+    inputs: ["5,월", "제니,피터,폴,히드로,사라", "피터,제니,히드로,사라,폴"],
+    expected: [
+      "5월 1일 월 제니" + LINE_SEPARATOR,
+      "5월 2일 화 피터" + LINE_SEPARATOR,
+      "5월 3일 수 폴" + LINE_SEPARATOR,
+      "5월 4일 목 히드로" + LINE_SEPARATOR,
+      "5월 5일 금(휴일) 피터" + LINE_SEPARATOR,
+      "5월 6일 토 제니" + LINE_SEPARATOR,
+      "5월 7일 일 히드로" + LINE_SEPARATOR,
+      "5월 8일 월 사라" + LINE_SEPARATOR,
+      "5월 9일 화 제니" + LINE_SEPARATOR,
+      "5월 10일 수 피터" + LINE_SEPARATOR,
+      "5월 11일 목 폴" + LINE_SEPARATOR,
+      "5월 12일 금 히드로" + LINE_SEPARATOR,
+      "5월 13일 토 사라" + LINE_SEPARATOR,
+      "5월 14일 일 폴" + LINE_SEPARATOR,
+      "5월 15일 월 사라" + LINE_SEPARATOR,
+      "5월 16일 화 제니" + LINE_SEPARATOR,
+      "5월 17일 수 피터" + LINE_SEPARATOR,
+      "5월 18일 목 폴" + LINE_SEPARATOR,
+      "5월 19일 금 히드로" + LINE_SEPARATOR,
+      "5월 20일 토 피터" + LINE_SEPARATOR,
+      "5월 21일 일 제니" + LINE_SEPARATOR,
+      "5월 22일 월 사라" + LINE_SEPARATOR,
+      "5월 23일 화 제니" + LINE_SEPARATOR,
+      "5월 24일 수 피터" + LINE_SEPARATOR,
+      "5월 25일 목 폴" + LINE_SEPARATOR,
+      "5월 26일 금 히드로" + LINE_SEPARATOR,
+      "5월 27일 토 사라" + LINE_SEPARATOR,
+      "5월 28일 일 히드로" + LINE_SEPARATOR,
+      "5월 29일 월 사라" + LINE_SEPARATOR,
+      "5월 30일 화 제니" + LINE_SEPARATOR,
+      "5월 31일 수 피터",
+    ],
+  });
+});
