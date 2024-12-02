@@ -38,7 +38,7 @@ class WorkSheet {
     const startDayOfWeekIndex = DAY_OF_WEEK.indexOf(startDayOfWeek);
     this.#workSheet = Array.from({ length: daysLength }, (_, i) => {
       const day = i + 1;
-      const dayOfWeekIndex = (startDayOfWeekIndex + i) % 7;
+      const dayOfWeekIndex = (startDayOfWeekIndex + i) % DAY_OF_WEEK.length;
       const dayOfWeek = DAY_OF_WEEK[dayOfWeekIndex];
       const isDayOff = HOLIDAY[month].includes(day) || dayOfWeek === "토" || dayOfWeek === "일";
       return { month, day, dayOfWeek, isDayOff, worker: "" };
