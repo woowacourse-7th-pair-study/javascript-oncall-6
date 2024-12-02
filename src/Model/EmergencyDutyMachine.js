@@ -8,10 +8,10 @@ class EmergencyDutyMachine {
   #prevDutyStaff;
 
   constructor(weekdayStaff, weekendStaff) {
-    this.#weekdayStaff = weekdayStaff;
-    this.#weekendStaff = weekendStaff;
-    this.#curWeekdayStaffOrder = weekdayStaff;
-    this.#curWeekendStaffOrder = weekendStaff;
+    this.#weekdayStaff = [...weekdayStaff];
+    this.#weekendStaff = [...weekendStaff];
+    this.#curWeekdayStaffOrder = [...weekdayStaff];
+    this.#curWeekendStaffOrder = [...weekendStaff];
     this.#curWeekdayIndex = 0;
     this.#curWeekendIndex = 0;
   }
@@ -30,8 +30,11 @@ class EmergencyDutyMachine {
         weekendDutyStaff = this.#curWeekendStaffOrder[this.#curWeekendIndex];
       }
       this.#curWeekendIndex += 1;
-      if (this.#curWeekendIndex === this.#curWeekendStaffOrder.length)
+      if (this.#curWeekendIndex === this.#curWeekendStaffOrder.length) {
         this.#curWeekendIndex = 0;
+        this.#curWeekendStaffOrder = [...this.#weekendStaff];
+      }
+
       this.#prevDutyStaff = weekendDutyStaff;
       return weekendDutyStaff;
     }
@@ -48,8 +51,11 @@ class EmergencyDutyMachine {
       weekdayDutyStaff = this.#curWeekdayStaffOrder[this.#curWeekdayIndex];
     }
     this.#curWeekdayIndex += 1;
-    if (this.#curWeekdayIndex === this.#curWeekdayStaffOrder.length)
+    if (this.#curWeekdayIndex === this.#curWeekdayStaffOrder.length) {
       this.#curWeekdayIndex = 0;
+      this.#curWeekdayStaffOrder = [...this.#weekdayStaff];
+    }
+
     this.#prevDutyStaff = weekdayDutyStaff;
     return weekdayDutyStaff;
   }
