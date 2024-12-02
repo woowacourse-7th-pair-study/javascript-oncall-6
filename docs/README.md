@@ -127,10 +127,10 @@
 - 예시 : `[{month: 5, day: 1, dayOfWeek: "월", isDayOff: false, worker: ""}]`
 - 추후 `assign` 메서드를 통해 `worker`를 배치
 
-### Workers
+### Shift
 
-- `names` : 비상 근무자의 이름들을 `Set`으로 담음 (중복 무시하기 위함)
-- `normalDayShift` : 평일의 비상 근무 순번을 배열로 담음
-- `dayOffShift` : 휴일의 비상 근무 순번을 배열로 담음
-- `onCallNormalDay()` : 평일의 비상 근무자를 반환하고, 방금 꺼낸 `normalDayShift[0]`을 해당 배열의 제일 뒤로 옮김 (queue)
-- `onCallDayOff()` : 휴일의 비상 근무자를 반환하고, 방금 꺼낸 `dayOffShift[0]`을 해당 배열의 제일 뒤로 옮김 (queue)
+- 비상 근무 순번을 담는 객체
+- `shift` : 비상 근무자의 이름들을 담는다.
+- `getOnCallWorker` : 다음 근무자의 이름을 반환한다.
+- `getNextOnCallWorker` : 다음 근무자가 이전 근무자와 겹치는 경우, 그 다음 근무자의 이름을 반환한다.
+- `onCall(name)` : 파라미터로 받은 근무자 이름을 가지고 `index`를 찾아내어 `shift`배열에서 제거하고 제일 뒤에 worker를 다시 넣어준다.
