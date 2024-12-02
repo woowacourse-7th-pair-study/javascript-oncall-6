@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from './constant/message.js';
-import { isNumber } from './util.js';
+import { isInRange, isNumber } from './util.js';
 
 class WorkMonth {
   #days;
@@ -9,7 +9,11 @@ class WorkMonth {
   }
 
   #validateMonth(monthInput) {
-    if (!isNumber(monthInput)) throw new Error(ERROR_MESSAGE.monthNotNumber);
+    const monthNumber = Number(monthInput);
+
+    if (!isNumber(monthNumber)) throw new Error(ERROR_MESSAGE.monthNotNumber);
+    if (!isInRange(monthNumber, 1, 12))
+      throw new Error(ERROR_MESSAGE.monthNotInRange);
   }
 }
 

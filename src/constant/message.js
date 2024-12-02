@@ -6,4 +6,5 @@ export const INPUT_MESSAGE = {
 
 export const ERROR_MESSAGE = {
   monthNotNumber: '[ERROR] 비상 근무를 배정할 월은 숫자로 입력해 주세요.',
+  monthNotInRange: '[ERROR] 1월 ~ 12월 중에서 입력해 주세요.',
 };
