@@ -3,6 +3,7 @@ import Input from '../View/Input.js';
 import { parseInputWithSeparator } from '../parser/parseInput.js';
 import { INPUT_SEPARATOR } from '../constant/seperator.js';
 import { throwWoowaError } from '../util/error.js';
+import { DAYS } from '../constant/days.js';
 
 class EmergencyDutyController {
   constructor() {}
@@ -23,6 +24,9 @@ class EmergencyDutyController {
 
       if (!isInRange(Number(parsedInput[0]), 1, 12))
         throwWoowaError('입력 받은 월 정보가 1 ~ 12 사이여야 합니다.');
+
+      if (!DAYS.includes(parsedInput[1]))
+        throwWoowaError('입력 받은 요일 정보가 잘못되었습니다.');
       return parsedInput;
     });
 
