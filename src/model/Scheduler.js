@@ -2,18 +2,28 @@ import { Console } from "@woowacourse/mission-utils";
 export default class Scheduler {
   #weekdayOrder = [];
   #holidayOrder = [];
-
+  #month;
   #calendar;
   #scheduler;
   //순서 배열로 입력받음
-  constructor(weekdayOrder, holidayOrder, calendar) {
+  constructor(weekdayOrder, holidayOrder, calendar, month) {
     this.#weekdayOrder = weekdayOrder;
     this.#holidayOrder = holidayOrder;
     //캘린더 객체로 만든 calendar 배열
     this.#calendar = calendar;
+    this.#month = month;
     this.#scheduler = this.generateScheduleWithDoubleCheck(
       this.generateSchedulerWithoutDoubleCheck()
     );
+  }
+  toPrintString() {
+    return this.#scheduler.map(({ day, isPublicHoliday, worker }, index) => {
+      let holiday = "";
+      if (this.isPrintHoliday(day, isPublicHoliday)) holiday = "(휴일)";
+      const string =
+        this.#month + "월" + (index + 1) + "일" + "day" + holiday + worker;
+      return string;
+    });
   }
   get scheduler() {
     return this.#scheduler;
@@ -120,6 +130,12 @@ export default class Scheduler {
   //today = {day : 요일(문자),  isPublicHoliday : false/true }
   isHoliday(day, isPublicHoliday) {
     if (day === "토" || day === "일" || isPublicHoliday) {
+      return true;
+    }
+    return false;
+  }
+  isPrintHoliday(day, isPrintHoliday) {
+    if (isPrintHoliday && day !== "토" && day !== "일") {
       return true;
     }
     return false;

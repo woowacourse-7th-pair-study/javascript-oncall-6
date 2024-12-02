@@ -1,4 +1,4 @@
-import { HOLIDAYS, WEEKDAY } from "../Constant";
+import { HOLIDAYS, WEEKDAY } from "../Constant.js";
 export default class Calendar {
   #month;
   #startDay;
