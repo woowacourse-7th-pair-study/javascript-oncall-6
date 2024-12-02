@@ -30,11 +30,11 @@ class App {
 
   async #getShift() {
     try {
-      const normalDayInput = await View.inputNormalDayShift();
-      this.#normalDayShift = new Shift(normalDayInput);
+      const normalDayShiftInput = await View.inputNormalDayShift();
+      this.#normalDayShift = new Shift(normalDayShiftInput);
 
-      const dayOffInput = await View.inputDayOffShift();
-      this.#dayOffShift = new Shift(dayOffInput);
+      const dayOffShiftInput = await View.inputDayOffShift();
+      this.#dayOffShift = new Shift(dayOffShiftInput);
     } catch (error) {
       View.printMessage(error.message);
       return await this.#getShift();
