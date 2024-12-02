@@ -1,4 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
+import ValidateModules from '../Utils/ValidateModules';
 
 class InputView {
   static async getMonthAndDay() {
@@ -7,7 +8,8 @@ class InputView {
         '비상 근무를 배정할 월과 시작 요일을 입력하세요> ',
       );
 
-      // TODO: validation
+      ValidateModules.checkMonthAndDay(userInput);
+
       const [monthString, day] = userInput.split(',');
       const month = Number(monthString);
 
@@ -22,7 +24,10 @@ class InputView {
   static async getWeekDayAndHolidayWorkers() {
     try {
       const weekDayWorkers = await this.#getWorkers('평일');
+      ValidateModules.checkWorkers(weekDayWorkers);
+
       const holidayWorkers = await this.#getWorkers('휴일');
+      ValidateModules.checkWorkers(holidayWorkers);
 
       return { weekDayWorkers, holidayWorkers };
     } catch (error) {
