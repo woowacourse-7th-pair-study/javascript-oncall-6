@@ -49,10 +49,10 @@
 ## 테스트 코드
 
   - [x] 통합 테스트
-  - [ ] 단위 테스트
+  - [x] 단위 테스트
     - [x] validateMonthAndDay 메서드 테스트
     - [x] validateNickName 메서드 테스트
-    - [ ] AssignWorkDay 클래스 테스트
+    - [x] AssignWorkDay 클래스 테스트
 
 ## 기타
 
