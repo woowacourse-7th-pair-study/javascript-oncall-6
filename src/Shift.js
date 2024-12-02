@@ -1,12 +1,12 @@
-import { ERROR_MESSAGE } from './constant/message.js';
-import { SHIFT_LENGTH_RANGE, WORKER_NAME_LENGTH_MAX } from './constant/rule.js';
-import { isDuplicate, isInRange, splitStringAndTrim } from './util.js';
+import { ERROR_MESSAGE } from "./constant/message.js";
+import { SHIFT_LENGTH_RANGE, WORKER_NAME_LENGTH_MAX } from "./constant/rule.js";
+import { isDuplicate, isInRange, splitStringAndTrim } from "./util.js";
 
 class Shift {
   #shift;
 
   constructor(input) {
-    const names = splitStringAndTrim(input, ',');
+    const names = splitStringAndTrim(input, ",");
     this.#validateNames(names);
     this.#shift = [...names];
   }

@@ -1,6 +1,6 @@
-import { DAY_OF_WEEK, HOLIDAY, MONTH_LENGTH } from './constant/daysInfo.js';
-import { ERROR_MESSAGE } from './constant/message.js';
-import { isInRange, isNumber, splitStringAndTrim, getDayOffString } from './util.js';
+import { DAY_OF_WEEK, HOLIDAY, MONTH_LENGTH } from "./constant/daysInfo.js";
+import { ERROR_MESSAGE } from "./constant/message.js";
+import { isInRange, isNumber, splitStringAndTrim, getDayOffString } from "./util.js";
 
 class WorkSheet {
   #workSheet;
@@ -8,7 +8,7 @@ class WorkSheet {
   constructor(input) {
     this.#validateInput(input);
 
-    const [month, startDayOfWeek] = splitStringAndTrim(input, ',');
+    const [month, startDayOfWeek] = splitStringAndTrim(input, ",");
     const parsedMonth = Number(month);
 
     this.#validateMonth(parsedMonth);
@@ -18,8 +18,8 @@ class WorkSheet {
   }
 
   #validateInput(input) {
-    if (input.trim() === '') throw new Error(ERROR_MESSAGE.noBlank);
-    if (splitStringAndTrim(input, ',').length !== 2) throw new Error(ERROR_MESSAGE.wrongInput);
+    if (input.trim() === "") throw new Error(ERROR_MESSAGE.noBlank);
+    if (splitStringAndTrim(input, ",").length !== 2) throw new Error(ERROR_MESSAGE.wrongInput);
   }
 
   #validateMonth(parsedMonth) {
@@ -38,8 +38,8 @@ class WorkSheet {
       const day = i + 1;
       const dayOfWeekIndex = (startDayOfWeekIndex + i) % 7;
       const dayOfWeek = DAY_OF_WEEK[dayOfWeekIndex];
-      const isDayOff = HOLIDAY[month].includes(day) || dayOfWeek === '토' || dayOfWeek === '일';
-      return { month, day, dayOfWeek, isDayOff, worker: '' };
+      const isDayOff = HOLIDAY[month].includes(day) || dayOfWeek === "토" || dayOfWeek === "일";
+      return { month, day, dayOfWeek, isDayOff, worker: "" };
     });
   }
 
@@ -74,7 +74,7 @@ class WorkSheet {
         const dayOffString = getDayOffString(isDayOff, dayOfWeek);
         return `${month}월 ${day}일 ${dayOfWeek}${dayOffString} ${worker}`;
       })
-      .join('\n');
+      .join("\n");
   }
 }
 

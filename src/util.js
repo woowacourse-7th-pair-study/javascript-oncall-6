@@ -8,6 +8,6 @@ export const splitStringAndTrim = (input, separator) =>
 export const isDuplicate = (array) => new Set([...array]).size !== array.length;
 
 export const getDayOffString = (isDayOff, dayOfWeek) => {
-  if (isDayOff && dayOfWeek !== '토' && dayOfWeek !== '일') return '(휴일)';
-  return '';
+  if (isDayOff && dayOfWeek !== "토" && dayOfWeek !== "일") return "(휴일)";
+  return "";
 };
