@@ -78,6 +78,17 @@ class WorkMonth {
     }
     return onCallWorker;
   }
+
+  getWorkSheetForPrint() {
+    return this.#workMonthInfo
+      .map(({ month, day, dayOfWeek, isDayOff, worker }) => {
+        let dayOffString = '';
+        if (isDayOff && dayOfWeek !== '토' && dayOfWeek !== '일')
+          dayOffString = '(휴일)';
+        return `${month}월 ${day}일 ${dayOfWeek}${dayOffString} ${worker}`;
+      })
+      .join('\n');
+  }
 }
 
 export default WorkMonth;

@@ -1,6 +1,6 @@
-import View from './View.js';
-import WorkMonth from './WorkMonth.js';
-import Shift from './Shift.js';
+import View from "./View.js";
+import WorkMonth from "./WorkMonth.js";
+import Shift from "./Shift.js";
 
 class App {
   #workMonth;
@@ -9,9 +9,13 @@ class App {
 
   async run() {
     await this.#getStartInfo();
+
     await this.#getShift();
 
     this.#workMonth.assignWorkers(this.#normalDayShift, this.#dayOffShift);
+
+    const result = this.#workMonth.getWorkSheetForPrint();
+    View.printMessage(result);
   }
 
   async #getStartInfo() {
