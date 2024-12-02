@@ -5,6 +5,5 @@ export const INPUT_MESSAGE = {
 };
 
 export const ERROR_MESSAGE = {
-  start: '[ERROR] 유효하지 않은 입력 값입니다. 다시 입력해 주세요.',
-  wrongInput: '[ERROR] 유효하지 않은 입력 값입니다. 다시 입력해 주세요.',
+  monthNotNumber: '[ERROR] 비상 근무를 배정할 월은 숫자로 입력해 주세요.',
 };
