@@ -12,6 +12,9 @@ class EmergencyDutyController {
       const parsedInput = parseInputWithSeparator(input, INPUT_SEPARATOR);
       if (parsedInput.length !== 2)
         throwWoowaError('유효하지 않은 입력 값입니다.');
+
+      if (Number.isNaN(Number(parsedInput[0])))
+        throwWoowaError('입력 받은 월 정보가 숫자가 아닙니다.');
       return parsedInput;
     });
 
