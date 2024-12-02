@@ -1,8 +1,10 @@
 import View from './View.js';
+import WorkMonth from './WorkMonth.js';
 
 class App {
   async run() {
-    await View.inputStart();
+    const startInput = await View.inputStart();
+    const workMonth = new WorkMonth(startInput);
   }
 }
 

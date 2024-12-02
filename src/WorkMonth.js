@@ -1,11 +1,13 @@
 import { DAY_OF_WEEK } from './constant/daysInfo.js';
 import { ERROR_MESSAGE } from './constant/message.js';
-import { isInRange, isNumber } from './util.js';
+import { isInRange, isNumber, splitStringAndTrim } from './util.js';
 
 class WorkMonth {
   #days;
 
-  constructor(month, startDayOfWeek) {
+  constructor(input) {
+    const [month, startDayOfWeek] = splitStringAndTrim(input, ',');
+
     this.#validateMonth(month);
     this.#validateDayOfWeek(startDayOfWeek);
     // TODO : this.#days에 비상 근무를 배정할 월에 대한 정보 담기
@@ -20,7 +22,7 @@ class WorkMonth {
   }
 
   #validateDayOfWeek(dayOfWeekInput) {
-    if (!DAY_OF_WEEK.includes(dayOfWeekInput.trim()))
+    if (!DAY_OF_WEEK.includes(dayOfWeekInput))
       throw new Error(ERROR_MESSAGE.dayOfWeekInvalid);
   }
 }
