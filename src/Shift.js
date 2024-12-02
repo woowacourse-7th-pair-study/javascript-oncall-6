@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from "./constant/message.js";
-import { INPUT_SEPARATOR, SHIFT_LENGTH_RANGE, WORKER_NAME_LENGTH_MAX } from "./constant/rule.js";
+import { INPUT_SEPARATOR, SHIFT_LENGTH_RANGE, WORKER_NAME_LENGTH_RANGE } from "./constant/rule.js";
 import { isDuplicate, isInRange, splitStringAndTrim } from "./util.js";
 
 class Shift {
@@ -15,8 +15,9 @@ class Shift {
     if (isDuplicate(names)) throw new Error(ERROR_MESSAGE.shiftNoDuplicate);
     if (!isInRange(names.length, SHIFT_LENGTH_RANGE.min, SHIFT_LENGTH_RANGE.max))
       throw new Error(ERROR_MESSAGE.shiftLengthNotInRange);
+
     names.forEach((name) => {
-      if (name.length > WORKER_NAME_LENGTH_MAX)
+      if (!isInRange(name.length, WORKER_NAME_LENGTH_RANGE.min, WORKER_NAME_LENGTH_RANGE.max))
         throw new Error(ERROR_MESSAGE.workerNameLengthOverMax);
     });
   }
