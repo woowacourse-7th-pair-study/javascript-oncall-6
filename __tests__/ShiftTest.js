@@ -16,6 +16,14 @@ const errorCase = [
     ],
     errorMessage: ERROR_MESSAGE.shiftLengthNotInRange,
   },
+  {
+    caseName: '비상 근무자의 닉네임이 최대 5자를 초과하는 경우',
+    inputs: [
+      '준팍,도밥,고니,수아,루루,글로,수아리리리리',
+      '준팍바바라바바,도밥,고니,수아,루루,글로, 지예',
+    ],
+    errorMessage: ERROR_MESSAGE.workerNameLengthOverMax,
+  },
 ];
 
 test.each(errorCase)(

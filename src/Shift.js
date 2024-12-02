@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from './constant/message.js';
-import { SHIFT_LENGTH_RANGE } from './constant/rule.js';
+import { SHIFT_LENGTH_RANGE, WORKER_NAME_LENGTH_MAX } from './constant/rule.js';
 import { isDuplicate, isInRange, splitStringAndTrim } from './util.js';
 
 class Shift {
@@ -16,6 +16,10 @@ class Shift {
       !isInRange(names.length, SHIFT_LENGTH_RANGE.min, SHIFT_LENGTH_RANGE.max)
     )
       throw new Error(ERROR_MESSAGE.shiftLengthNotInRange);
+    names.forEach((name) => {
+      if (name.length > WORKER_NAME_LENGTH_MAX)
+        throw new Error(ERROR_MESSAGE.workerNameLengthOverMax);
+    });
   }
 }
 
