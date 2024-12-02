@@ -4,6 +4,7 @@ import { INPUT_SEPARATOR } from '../constant/seperator.js';
 import { parseInputWithSeparator } from '../parser/parseInput.js';
 import { validateMonthAndDayInput } from '../validator/validateMonthInput.js';
 import { validateWeekdayStaffInput } from '../validator/validateWeekdayStaffInput.js';
+import { validateWeekendStaffInput } from '../validator/validateWeekendStaffInput.js';
 
 class EmergencyDutyController {
   constructor() {}
@@ -38,6 +39,7 @@ class EmergencyDutyController {
   #getValidatedWeekendStaff() {
     return Input.getWeekendStaffInput()((input) => {
       const parsedInput = parseInputWithSeparator(input, INPUT_SEPARATOR);
+      validateWeekendStaffInput(parsedInput);
       return parsedInput;
     });
   }
