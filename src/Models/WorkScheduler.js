@@ -1,57 +1,78 @@
 import { HOLIDAY_INFO, MONTH_DAYS, WEEK_NAME } from '../constants.js';
 
 class WorkScheduler {
-  static createWorkSchedule(month, day, workerInfo) {
+  #weekdayWorkers;
+  #holidayWorkers;
+  #workSchedule;
+  #weekdayQueue;
+  #holidayQueue;
+  #curWeekNameIndex;
+  #weekdayWorkersIndex;
+  #holidayWorkersIndex;
+
+  constructor(day, workerInfo) {
     const { weekDayWorkers, holidayWorkers } = workerInfo;
-    const workSchedule = [''];
 
-    let weekDayQueue = [];
-    let holidayQueue = [];
+    this.#weekdayWorkers = weekDayWorkers;
+    this.#holidayWorkers = holidayWorkers;
+    this.#workSchedule = [''];
+    this.#weekdayQueue = [];
+    this.#holidayQueue = [];
+    this.#curWeekNameIndex = WEEK_NAME.indexOf(day);
+    this.#weekdayWorkersIndex = 0;
+    this.#holidayWorkersIndex = 0;
+  }
 
-    let curWeekNameIndex = WEEK_NAME.indexOf(day);
+  #weekdayWorkerAction(curDay) {
+    if (this.#weekdayWorkers[this.#weekdayWorkersIndex] === this.#workSchedule[curDay - 1]) {
+      // 전일 근무자와 같은 경우
+      this.#weekdayQueue = [...this.#weekdayQueue, weekDayWorkers[this.#weekdayWorkersIndex]];
+      this.#weekdayWorkersIndex = (this.#weekdayWorkersIndex + 1) % this.#weekdayWorkers.length;
+      this.#workSchedule.push(this.#weekdayWorkers[this.#weekdayWorkersIndex]);
+    } else {
+      if (this.#weekdayQueue.length) {
+        const delayedWorker = this.#weekdayQueue.pop();
+        this.#workSchedule.push(delayedWorker);
+      } else {
+        this.#workSchedule.push(this.#weekdayWorkers[this.#weekdayWorkersIndex]);
+        this.#weekdayWorkersIndex = (this.#weekdayWorkersIndex + 1) % this.#weekdayWorkers.length;
+      }
+    }
+  }
 
-    let weekDayWorkersIndex = 0;
-    let holidayWorkersIndex = 0;
+  #holidayWorkerAction(curDay) {
+    if (this.#holidayWorkers[this.#holidayWorkersIndex] === this.#workSchedule[curDay - 1]) {
+      this.#holidayQueue = [...this.#holidayQueue, this.#holidayWorkers[this.#holidayWorkersIndex]];
+      this.#holidayWorkersIndex = (this.#holidayWorkersIndex + 1) % this.#holidayWorkers.length;
+      this.#workSchedule.push(this.#holidayWorkers[this.#holidayWorkersIndex]);
+    } else {
+      if (this.#holidayQueue.length) {
+        const delayedWorker = this.#holidayQueue.pop();
+        this.#workSchedule.push(delayedWorker);
+      } else {
+        this.#workSchedule.push(this.#holidayWorkers[this.#holidayWorkersIndex]);
+        this.#holidayWorkersIndex = (this.#holidayWorkersIndex + 1) % this.#holidayWorkers.length;
+      }
+    }
+  }
 
+  createWorkSchedule(month) {
     for (let curDay = 1; curDay <= MONTH_DAYS[month]; curDay += 1) {
       // 평일 근무자 삽입
-      if (curWeekNameIndex < 5 && !HOLIDAY_INFO[month].includes(curDay)) {
-        if (weekDayWorkers[weekDayWorkersIndex] === workSchedule[curDay - 1]) {
-          // 전일 근무자와 같은 경우
-          weekDayQueue = [...weekDayQueue, weekDayWorkers[weekDayWorkersIndex]];
-          weekDayWorkersIndex = (weekDayWorkersIndex + 1) % weekDayWorkers.length;
-          workSchedule.push(weekDayWorkers[weekDayWorkersIndex]);
-        } else {
-          if (weekDayQueue.length) {
-            const delayedWorker = weekDayQueue.pop();
-            workSchedule.push(delayedWorker);
-          } else {
-            workSchedule.push(weekDayWorkers[weekDayWorkersIndex]);
-            weekDayWorkersIndex = (weekDayWorkersIndex + 1) % weekDayWorkers.length;
-          }
-        }
+      if (this.#curWeekNameIndex < 5 && !HOLIDAY_INFO[month].includes(curDay)) {
+        this.#weekdayWorkerAction(curDay);
       }
       // 휴일 근무자 삽입
       else {
-        if (holidayWorkers[holidayWorkersIndex] === workSchedule[curDay - 1]) {
-          holidayQueue = [...holidayQueue, holidayWorkers[holidayWorkersIndex]];
-          holidayWorkersIndex = (holidayWorkersIndex + 1) % holidayWorkers.length;
-          workSchedule.push(holidayWorkers[holidayWorkersIndex]);
-        } else {
-          if (holidayQueue.length) {
-            const delayedWorker = holidayQueue.pop();
-            workSchedule.push(delayedWorker);
-          } else {
-            workSchedule.push(holidayWorkers[holidayWorkersIndex]);
-            holidayWorkersIndex = (holidayWorkersIndex + 1) % holidayWorkers.length;
-          }
-        }
+        this.#holidayWorkerAction(curDay);
       }
 
-      curWeekNameIndex = (curWeekNameIndex + 1) % WEEK_NAME.length;
+      this.#curWeekNameIndex = (this.#curWeekNameIndex + 1) % WEEK_NAME.length;
     }
+  }
 
-    return workSchedule;
+  get workSchedule() {
+    return this.#workSchedule;
   }
 }
 

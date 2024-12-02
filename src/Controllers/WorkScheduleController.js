@@ -7,9 +7,10 @@ class WorkScheduleController {
     const { month, day } = await InputView.getMonthAndDay();
     const workerInfo = await InputView.getWeekDayAndHolidayWorkers();
 
-    const workderSchedule = WorkScheduler.createWorkSchedule(month, day, workerInfo);
+    const workScheduler = new WorkScheduler(day, workerInfo);
+    workScheduler.createWorkSchedule(month);
 
-    OutputView.printWorkBoard(month, day, workderSchedule);
+    OutputView.printWorkBoard(month, day, workScheduler.workSchedule);
   }
 }
 
