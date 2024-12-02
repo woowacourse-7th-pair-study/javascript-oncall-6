@@ -1,5 +1,9 @@
+import WorkScheduleController from './Controllers/WorkScheduleController.js';
+
 class App {
-  async run() {}
+  async run() {
+    await WorkScheduleController.run();
+  }
 }
 
 export default App;
