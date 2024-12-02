@@ -15,6 +15,9 @@ class EmergencyDutyController {
 
       if (Number.isNaN(Number(parsedInput[0])))
         throwWoowaError('입력 받은 월 정보가 숫자가 아닙니다.');
+
+      if (!Number.isInteger(Number(parsedInput[0])))
+        throwWoowaError('입력 받은 월 정보가 정수가 아닙니다.');
       return parsedInput;
     });
 
