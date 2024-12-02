@@ -3,7 +3,7 @@ export default class Calendar {
   #month;
   #startDay;
   #calendar = [];
-  constructor([month, startDay]) {
+  constructor(month, startDay) {
     //숫자
     this.#month = month;
     //string

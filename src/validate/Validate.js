@@ -1,6 +1,11 @@
-import { WEEKDAY } from "../Constant";
+import { WEEKDAY } from "../Constant.js";
 
 export default class Validate {
+  static monthAndStartDay(arr) {
+    if (arr.length !== 2) {
+      throw new Error("[ERROR] 알맞은 형식이 아닙니다");
+    }
+  }
   static month(month) {
     if (Number.isNaN(month)) {
       throw new Error("[ERROR] 월은 숫자를 입력해야합니다");
