@@ -1,29 +1,27 @@
 import { Console } from '@woowacourse/mission-utils';
+import EmergencyDutyMachine from '../Model/EmergencyDutyMachine.js';
+import EmergencyDutyScheduler from '../Model/EmergencyDutyScheduler.js';
 import Input from '../View/Input.js';
+import Output from '../View/Output.js';
 import { INPUT_SEPARATOR } from '../constant/seperator.js';
 import { parseInputWithSeparator } from '../parser/parseInput.js';
 import { validateMonthAndDayInput } from '../validator/validateMonthInput.js';
 import { validateWeekdayStaffInput } from '../validator/validateWeekdayStaffInput.js';
 import { validateWeekendStaffInput } from '../validator/validateWeekendStaffInput.js';
-import EmergencyDutyCalculator from '../Model/EmergencyDutyMachine.js';
-import EmergencyDutyScheduler from '../Model/EmergencyDutyScheduler.js';
-import Output from '../View/Output.js';
 
 class EmergencyDutyController {
+  #scheduler;
+
   async init() {
     const [dutyMonth, startDays] = await this.#getValidatedStartMonthAndDays();
+    this.#scheduler = new EmergencyDutyScheduler(dutyMonth, startDays);
 
     const { weekdayStaff, weekendStaff } =
       await this.#getValidatedEmergencyDutyStaff();
+    const calculator = new EmergencyDutyMachine(weekdayStaff, weekendStaff);
+    this.#scheduler.assignMonthDutyStaff(calculator);
 
-    const scheduler = new EmergencyDutyScheduler(dutyMonth, startDays);
-
-    const calculator = new EmergencyDutyCalculator(weekdayStaff, weekendStaff);
-
-    scheduler.assignMonthDutyStaff(calculator);
-
-    const dutySchedule = scheduler.getScheduleForPrint();
-    Output.printEmergencyDutySchedule(dutySchedule);
+    this.#printSchedule();
   }
 
   #getValidatedStartMonthAndDays() {
@@ -61,6 +59,11 @@ class EmergencyDutyController {
     validateWeekendStaffInput(parsedInput, weekdayStaff);
 
     return parsedInput;
+  }
+
+  #printSchedule() {
+    const dutySchedule = this.#scheduler.getScheduleForPrint();
+    Output.printEmergencyDutySchedule(dutySchedule);
   }
 }
 
