@@ -6,11 +6,18 @@ class WorkMonth {
   #days;
 
   constructor(input) {
+    this.#validateInput(input);
     const [month, startDayOfWeek] = splitStringAndTrim(input, ',');
 
     this.#validateMonth(month);
     this.#validateDayOfWeek(startDayOfWeek);
     // TODO : this.#days에 비상 근무를 배정할 월에 대한 정보 담기
+  }
+
+  #validateInput(input) {
+    if (input.trim() === '') throw new Error(ERROR_MESSAGE.noBlank);
+    if (splitStringAndTrim(input, ',').length !== 2)
+      throw new Error(ERROR_MESSAGE.wrongInput);
   }
 
   #validateMonth(monthInput) {

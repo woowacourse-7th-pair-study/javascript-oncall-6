@@ -3,6 +3,16 @@ import WorkMonth from '../src/WorkMonth.js';
 
 const errorCase = [
   {
+    caseName: '공백을 입력한 경우',
+    inputs: ['', '   '],
+    errorMessage: ERROR_MESSAGE.noBlank,
+  },
+  {
+    caseName: '입력값이 쉼표(,)로 나뉘어지지 않는 경우',
+    inputs: ['3화', '5:토'],
+    errorMessage: ERROR_MESSAGE.wrongInput,
+  },
+  {
     caseName: '월이 숫자가 아닌 경우',
     inputs: ['hi,월', '지예,월'],
     errorMessage: ERROR_MESSAGE.monthNotNumber,

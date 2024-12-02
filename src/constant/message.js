@@ -5,6 +5,8 @@ export const INPUT_MESSAGE = {
 };
 
 export const ERROR_MESSAGE = {
+  noBlank: '[ERROR] 공백은 입력할 수 없습니다. 다시 입력해 주세요.',
+  wrongInput: '[ERROR] 유효하지 않은 입력 값입니다. 다시 입력해 주세요.',
   monthNotNumber: '[ERROR] 비상 근무를 배정할 월은 숫자로 입력해 주세요.',
   monthNotInRange: '[ERROR] 1월 ~ 12월 중에서 입력해 주세요.',
   dayOfWeekInvalid: '[ERROR] 올바른 요일을 입력해 주세요',
