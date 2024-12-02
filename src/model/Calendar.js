@@ -22,16 +22,16 @@ export default class Calendar {
   }
   generateCalendar() {
     const calendar = [];
-    //객채 요소를 배열로 저장 {day : 요일(문자),  isHoliday : false } worker는 나중에 추가
+    //객채 요소를 배열로 저장 {day : 요일(문자),  isPublicHoliday : false } worker는 나중에 추가
     for (let i = 1; i <= this.getEndDate(this.#month); i++) {
       let day = this.getDay(i);
-      let isHoliday = this.isHoliday(i);
-      calendar.push({ day, isHoliday });
+      let isPublicHoliday = this.isPublicHoliday(i);
+      calendar.push({ day, isPublicHoliday });
     }
     return calendar;
   }
   //일(숫자)를 입력받음
-  isHoliday(date) {
+  isPublicHoliday(date) {
     if (!HOLIDAYS[this.#month]) return false;
     if (HOLIDAYS[this.#month] === date) return true;
     return false;

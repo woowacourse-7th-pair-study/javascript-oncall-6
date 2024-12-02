@@ -4,8 +4,8 @@ describe("Calendar 객체 테스트", () => {
   test("공휴일 체크 테스트", () => {
     const calendar = new Calendar([6, "목"]);
     //6월 6일은 화요일
-    expect(calendar.isHoliday(6)).toBeTruthy();
-    expect(calendar.isHoliday(10)).toBeFalsy();
+    expect(calendar.isPublicHoliday(6)).toBeTruthy();
+    expect(calendar.isPublicHoliday(10)).toBeFalsy();
   });
   test("알맞은 day 얻는지 테스트", () => {
     const calendar = new Calendar([6, "금"]);
@@ -18,8 +18,8 @@ describe("Calendar 객체 테스트", () => {
     const calendar = new Calendar([1, "화"]);
     const thisMonthCalendar = calendar.calendar;
     expect(thisMonthCalendar.length).toBe(31);
-    expect(thisMonthCalendar[0].isHoliday).toBeTruthy();
-    expect(thisMonthCalendar[2].isHoliday).toBeFalsy();
+    expect(thisMonthCalendar[0].isPublicHoliday).toBeTruthy();
+    expect(thisMonthCalendar[2].isPublicHoliday).toBeFalsy();
     expect(thisMonthCalendar.at(-1).day).toBe("목");
   });
 });
