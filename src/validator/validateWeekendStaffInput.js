@@ -1,4 +1,5 @@
 import { ERROR_MESSAGE } from '../constant/error.js';
+import { RULE } from '../constant/rule.js';
 import { throwWoowaError } from '../util/error.js';
 import {
   isArrayElementSame,
@@ -11,7 +12,7 @@ export const validateWeekendStaffInput = (staffNamesInput, weekdayStaff) => {
     throwWoowaError(ERROR_MESSAGE.duplicateStaffName);
 
   staffNamesInput.forEach((staffName) => {
-    if (!isInRange(staffName.length, 1, 5))
+    if (!isInRange(staffName.length, RULE.nameLength.min, RULE.nameLength.max))
       throwWoowaError(ERROR_MESSAGE.notInRangeStaffNameLength);
   });
 
