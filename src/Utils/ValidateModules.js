@@ -5,7 +5,7 @@ class ValidateModules {
     const [monthString, dayName] = value.split(',');
     const month = Number(monthString);
 
-    Validators.checkIsNumber(month);
+    Validators.checkIsInteger(month);
     Validators.checkIsCorrectMonth(month);
     Validators.checkIsDayName(dayName);
   }

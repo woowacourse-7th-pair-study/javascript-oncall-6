@@ -8,7 +8,7 @@ export const SERVICE_CONSTANTS = Object.freeze({
 
 export const ERROR_MESSAGE = Object.freeze({
   errorPrefix: '[ERROR]',
-  notANumber: '숫자가 아닌 값이 포함되어 있습니다.',
+  notAInteger: '정수가 아닌 값이 포함되어 있습니다.',
   notAMonth: '잘못된 월이 입력되었습니다.',
   wrongWeekName: '잘못된 요일이 입력되었습니다.',
   exceedNameLength: `근무자 이름이 너무 길거나 짧습니다. (${SERVICE_CONSTANTS.workerNameLengthLimit}자 이하)`,

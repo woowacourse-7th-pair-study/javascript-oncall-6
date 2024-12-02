@@ -2,8 +2,8 @@ import { ERROR_MESSAGE, SERVICE_CONSTANTS, WEEK_NAME } from '../constants.js';
 import errorHandler from './ErrorHandler.js';
 
 class Validators {
-  static checkIsNumber(value) {
-    errorHandler(Number.isNaN(value), ERROR_MESSAGE.notANumber);
+  static checkIsInteger(value) {
+    errorHandler(!Number.isInteger(value), ERROR_MESSAGE.notAInteger);
   }
 
   static checkIsCorrectMonth(value) {
