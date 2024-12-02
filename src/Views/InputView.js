@@ -18,6 +18,31 @@ class InputView {
       return await this.getMonthAndDay();
     }
   }
+
+  static async getWeekDayAndHolidayWorkers() {
+    try {
+      const weekDayWorkers = await this.#getWorkers('평일');
+      const holidayWorkers = await this.#getWorkers('휴일');
+
+      return { weekDayWorkers, holidayWorkers };
+    } catch (error) {
+      Console.print(error.message);
+
+      return await this.getWeekDayAndHolidayWorkers();
+    }
+  }
+
+  static async #getWorkers(dayType) {
+    const userInput = await Console.readLineAsync(
+      `${dayType} 비상 근무 순번대로 사원 닉네임을 입력하세요>`,
+    );
+
+    // TODO: Validation
+
+    const workers = userInput.split(',');
+
+    return workers;
+  }
 }
 
 export default InputView;
