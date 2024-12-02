@@ -5,22 +5,22 @@ import { parseInputWithSeparator } from '../parser/parseInput.js';
 import { validateMonthAndDayInput } from '../validator/validateMonthInput.js';
 import { validateWeekdayStaffInput } from '../validator/validateWeekdayStaffInput.js';
 import { validateWeekendStaffInput } from '../validator/validateWeekendStaffInput.js';
+import EmergencyDutyCalculator from '../Model/EmergencyDutyMachine.js';
+import EmergencyDutyScheduler from '../Model/EmergencyDutyScheduler.js';
 
 class EmergencyDutyController {
-  constructor() {}
-
   async init() {
-    const startMonthAndDay = await this.#getValidatedStartMonthAndDay();
+    const [dutyMonth, startDays] = await this.#getValidatedStartMonthAndDays();
 
     const { weekdayStaff, weekendStaff } =
       await this.#getValidatedEmergencyDutyStaff();
 
-    Console.print(startMonthAndDay);
-    Console.print(weekdayStaff);
-    Console.print(weekendStaff);
+    const scheduler = new EmergencyDutyScheduler(dutyMonth, startDays);
+
+    const calculator = new EmergencyDutyCalculator(weekdayStaff, weekendStaff);
   }
 
-  #getValidatedStartMonthAndDay() {
+  #getValidatedStartMonthAndDays() {
     return Input.getStartMonthAndDay()((input) => {
       const parsedInput = parseInputWithSeparator(input, INPUT_SEPARATOR);
       validateMonthAndDayInput(parsedInput);

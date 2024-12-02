@@ -1,3 +1,5 @@
+import { DAYS } from '../constant/days.js';
+
 export const isNumber = (value) => !Number.isNaN(value);
 
 export const isInteger = (value) => Number.isInteger(value);
@@ -11,4 +13,10 @@ export const isArrayElementSame = (array1, array2) => {
   const sortedArray2 = [...array2].sort();
 
   return sortedArray1.toString() === sortedArray2.toString();
+};
+
+export const isWeekend = (days) => {
+  const daysIndex = DAYS.indexOf(days);
+
+  return daysIndex === 6 || daysIndex === 0;
 };
