@@ -1,5 +1,8 @@
-
-
+/**
+ * 
+ * @param {string} string 
+ * @returns {number}
+ */
 const stringToNumber = (string) => {
   return Number(string);
 }

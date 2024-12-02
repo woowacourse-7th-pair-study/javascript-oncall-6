@@ -1,14 +1,13 @@
 import parser from '../utils/parser.js';
 import validateMonthAndDay from '../validation/validateMonthAndDay.js';
+import validateNickName from '../validation/validateNickName.js';
 import InputView from '../views/InputView.js';
 import OutputView from '../views/OutputView.js';
 
 class Controller {
   async start() {
     const { month, day } = await this.#getValidatedMonthAndDay();
-    console.log(month, day);
-
-    // const { weekDayEmployees, weekEndEmployees } = await this.#getValidatedWeekdayAndWeekEndEmployees();
+    const { weekDayEmployees, weekEndEmployees } = await this.#getValidatedWeekdayAndWeekEndEmployees();
     
   }
 
@@ -21,7 +20,6 @@ class Controller {
       const monthAndDay = await InputView.readMonthAndDay();
       const parsedMonthAndDay = parser.deleteEmptyValue(parser.stringToArray(monthAndDay));
 
-      console.log(parsedMonthAndDay);
       return validateMonthAndDay(parsedMonthAndDay);
     } catch (error) {
       OutputView.printErrorMessage(error.message);
@@ -34,7 +32,20 @@ class Controller {
    * @returns {{ weekDayEmployees: Array<string>, weekEndEmployees: Array<string> }}
    */
   async #getValidatedWeekdayAndWeekEndEmployees() {
+    try {
+      const weekDayEmployees = await InputView.readWeekDay();
+      const parsedWeekDayEmployees = parser.deleteEmptyValue(parser.stringToArray(weekDayEmployees));
+      validateNickName(parsedWeekDayEmployees);
 
+      const weekEndEmployees = await InputView.readWeekEnd();
+      const parsedWeekEndEmployees = parser.deleteEmptyValue(parser.stringToArray(weekEndEmployees));
+      validateNickName(parsedWeekEndEmployees);
+
+      return { weekDayEmployees: parsedWeekDayEmployees, weekEndEmployees: parsedWeekEndEmployees };
+    } catch (error) {
+      OutputView.printErrorMessage(error.message);
+      return this.#getValidatedWeekdayAndWeekEndEmployees();
+    }
   }
 }
 
