@@ -18,8 +18,8 @@ class EmergencyDutyController {
 
     const { weekdayStaff, weekendStaff } =
       await this.#getValidatedEmergencyDutyStaff();
-    const calculator = new EmergencyDutyMachine(weekdayStaff, weekendStaff);
-    this.#scheduler.assignMonthDutyStaff(calculator);
+    const machine = new EmergencyDutyMachine(weekdayStaff, weekendStaff);
+    this.#scheduler.assignMonthDutyStaff(machine);
 
     this.#printSchedule();
   }
