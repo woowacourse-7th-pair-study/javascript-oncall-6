@@ -1,17 +1,20 @@
-import { DAY_OF_WEEK } from './constant/daysInfo.js';
+import { DAY_OF_WEEK, HOLIDAY, MONTH_LENGTH } from './constant/daysInfo.js';
 import { ERROR_MESSAGE } from './constant/message.js';
 import { isInRange, isNumber, splitStringAndTrim } from './util.js';
 
 class WorkMonth {
-  #days;
+  #workMonthInfo;
 
   constructor(input) {
     this.#validateInput(input);
-    const [month, startDayOfWeek] = splitStringAndTrim(input, ',');
 
-    this.#validateMonth(month);
+    const [month, startDayOfWeek] = splitStringAndTrim(input, ',');
+    const parsedMonth = Number(month);
+
+    this.#validateMonth(parsedMonth);
     this.#validateDayOfWeek(startDayOfWeek);
-    // TODO : this.#days에 비상 근무를 배정할 월에 대한 정보 담기
+
+    this.#initDays(parsedMonth, startDayOfWeek);
   }
 
   #validateInput(input) {
@@ -20,17 +23,30 @@ class WorkMonth {
       throw new Error(ERROR_MESSAGE.wrongInput);
   }
 
-  #validateMonth(monthInput) {
-    const monthNumber = Number(monthInput);
-
-    if (!isNumber(monthNumber)) throw new Error(ERROR_MESSAGE.monthNotNumber);
-    if (!isInRange(monthNumber, 1, 12))
+  #validateMonth(parsedMonth) {
+    if (!isNumber(parsedMonth)) throw new Error(ERROR_MESSAGE.monthNotNumber);
+    if (!isInRange(parsedMonth, 1, 12))
       throw new Error(ERROR_MESSAGE.monthNotInRange);
   }
 
   #validateDayOfWeek(dayOfWeekInput) {
     if (!DAY_OF_WEEK.includes(dayOfWeekInput))
       throw new Error(ERROR_MESSAGE.dayOfWeekInvalid);
+  }
+
+  #initDays(month, startDayOfWeek) {
+    const daysLength = MONTH_LENGTH[month];
+    const startDayOfWeekIndex = DAY_OF_WEEK.indexOf(startDayOfWeek);
+    this.#workMonthInfo = Array.from({ length: daysLength }, (_, i) => {
+      const day = i + 1;
+      const dayOfWeekIndex = (startDayOfWeekIndex + i) % 7;
+      const dayOfWeek = DAY_OF_WEEK[dayOfWeekIndex];
+      const isDayOff =
+        HOLIDAY[month].includes(day) ||
+        dayOfWeek === '토' ||
+        dayOfWeek === '일';
+      return { month, day, dayOfWeek, isDayOff };
+    });
   }
 }
 

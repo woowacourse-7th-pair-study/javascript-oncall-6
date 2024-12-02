@@ -1,12 +1,26 @@
 export const DAY_OF_WEEK = ['일', '월', '화', '수', '목', '금', '토'];
 
-export const HOLIDAY = [
-  { month: 1, day: 1 },
-  { month: 3, day: 1 },
-  { month: 5, day: 5 },
-  { month: 6, day: 6 },
-  { month: 8, day: 15 },
-  { month: 10, day: 3 },
-  { month: 10, day: 9 },
-  { month: 12, day: 25 },
-];
+export const HOLIDAY = {
+  1: [1],
+  3: [1],
+  5: [5],
+  6: [6],
+  8: [15],
+  10: [3, 9],
+  12: [25],
+};
+
+export const MONTH_LENGTH = {
+  1: 31,
+  2: 28,
+  3: 31,
+  4: 30,
+  5: 31,
+  6: 30,
+  7: 31,
+  8: 31,
+  9: 30,
+  10: 31,
+  11: 30,
+  12: 31,
+};
