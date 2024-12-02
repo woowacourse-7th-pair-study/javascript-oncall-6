@@ -13,6 +13,10 @@ const View = {
   inputDayOffShift() {
     return Console.readLineAsync(INPUT_MESSAGE.dayOff);
   },
+
+  printMessage(message) {
+    Console.print(message);
+  },
 };
 
 export default View;
