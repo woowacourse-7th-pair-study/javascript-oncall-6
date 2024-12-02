@@ -2,6 +2,7 @@ import { DAY } from '../constant/month.js';
 
 export const validateMonth = (monthInput) => {
   const month = Number(monthInput);
+  isInteger(month);
 
   if (Number.isNaN(month)) {
     throw new Error('[ERROR] 월은 숫자로 입력해야 합니다.');
@@ -9,6 +10,12 @@ export const validateMonth = (monthInput) => {
 
   if (month > 12 || month < 1) {
     throw new Error('[ERROR] 월은 1이상 12이하의 숫자로 입력해야 합니다.');
+  }
+};
+
+const isInteger = (month) => {
+  if (!Number.isInteger(month)) {
+    throw new Error('[ERROR] 정수만 입력해 주세요.');
   }
 };
 
