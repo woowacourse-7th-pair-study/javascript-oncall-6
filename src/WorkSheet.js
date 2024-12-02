@@ -1,6 +1,6 @@
 import { DAY_OF_WEEK, HOLIDAY, MONTH_LENGTH } from './constant/daysInfo.js';
 import { ERROR_MESSAGE } from './constant/message.js';
-import { isInRange, isNumber, splitStringAndTrim } from './util.js';
+import { isInRange, isNumber, splitStringAndTrim, getDayOffString } from './util.js';
 
 class WorkSheet {
   #workSheet;
@@ -47,15 +47,16 @@ class WorkSheet {
     this.#workSheet.forEach(({ isDayOff }, i) => {
       const yesterdayWorker = i - 1 >= 0 && this.#workSheet[i - 1].worker;
 
-      if (!isDayOff) {
-        const onCallWorker = this.#getOnCallWorker(normalDayShift, yesterdayWorker);
-        normalDayShift.onCall(onCallWorker);
-        this.#workSheet[i].worker = onCallWorker;
-      } else {
+      if (isDayOff) {
         const onCallWorker = this.#getOnCallWorker(dayOffShift, yesterdayWorker);
         dayOffShift.onCall(onCallWorker);
         this.#workSheet[i].worker = onCallWorker;
+        return;
       }
+      const onCallWorker = this.#getOnCallWorker(normalDayShift, yesterdayWorker);
+      normalDayShift.onCall(onCallWorker);
+      this.#workSheet[i].worker = onCallWorker;
+      return;
     });
   }
 
@@ -70,8 +71,7 @@ class WorkSheet {
   getWorkSheetForPrint() {
     return this.#workSheet
       .map(({ month, day, dayOfWeek, isDayOff, worker }) => {
-        let dayOffString = '';
-        if (isDayOff && dayOfWeek !== '토' && dayOfWeek !== '일') dayOffString = '(휴일)';
+        const dayOffString = getDayOffString(isDayOff, dayOfWeek);
         return `${month}월 ${day}일 ${dayOfWeek}${dayOffString} ${worker}`;
       })
       .join('\n');
