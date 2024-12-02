@@ -5,6 +5,10 @@ class App {
   async run() {
     const startInput = await View.inputStart();
     const workMonth = new WorkMonth(startInput);
+
+    const normalDayInput = await View.inputNormalDayShift();
+
+    const dayOffInput = await View.inputDayOffShift();
   }
 }
 

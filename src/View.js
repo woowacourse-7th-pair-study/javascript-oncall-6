@@ -5,6 +5,14 @@ const View = {
   inputStart() {
     return Console.readLineAsync(INPUT_MESSAGE.start);
   },
+
+  inputNormalDayShift() {
+    return Console.readLineAsync(INPUT_MESSAGE.normalDay);
+  },
+
+  inputDayOffShift() {
+    return Console.readLineAsync(INPUT_MESSAGE.dayOff);
+  },
 };
 
 export default View;
