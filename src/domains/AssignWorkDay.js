@@ -2,6 +2,13 @@ import { HOLIDAY, LAST_DAY, DAYWEEK, WEEKDAY, WEEKEND } from '../constants/const
 
 class AssignWorkDay {
   /** @type {Array<{ month: number, day: number, dayWeek: string, name: string }>} */ #schedule = [];
+  /** @type {Array<string>} 평일 순번 배열 */ #weekDayEmployeesArray;
+  /** @type {Array<string>} 휴일 순번 배열 */ #weekEndEmployeesArray;
+
+  constructor(weekDayEmployees, weekEndEmployees) {
+    this.#weekDayEmployeesArray = weekDayEmployees; // 평일 순번 새 배열 생성
+    this.#weekEndEmployeesArray = weekEndEmployees; // 휴일 순번 새 배열 생성
+  }
 
   getSchedule() {
     return this.#schedule;
@@ -14,44 +21,44 @@ class AssignWorkDay {
    * @param {Array<string>} weekDayEmployees [ '누구', '누구', ... ]
    * @param {Array<string>} weekEndEmployees [ '누구', '누구', ... ]
    */
-  assign(month, startDay, weekDayEmployees, weekEndEmployees) {
+  assign(month, startDay) {
     let curDayWeekIdx = DAYWEEK.indexOf(startDay); // 현재 요일 인덱스
-    let weekDayEmployeesArray = weekDayEmployees; // 평일 순번 새 배열 생성
-    let weekEndEmployeesArray = weekEndEmployees; // 휴일 순번 새 배열 생성
-
     for (let curDay = 1; curDay <= LAST_DAY[month]; curDay++) {
       let name = '';
+      if (this.#checkHoliday(curDayWeekIdx, month, curDay)) name = this.#checkAndUpdateNameWeekEnd(name);
+      else if (this.#checkWeekday(curDayWeekIdx)) name = this.#checkAndUpdateNameWeekDay(name);
 
-      if (this.#checkHoliday(curDayWeekIdx, month, curDay)) {
-        name = weekEndEmployeesArray.shift();
-        if (this.#checkLastName(name)) {
-          let nextEmployeeName = weekEndEmployeesArray.shift();
-          weekEndEmployeesArray.unshift(name);
-          name = nextEmployeeName;
-        }
-        weekEndEmployeesArray.push(name);
-      } else if (this.#checkWeekday(curDayWeekIdx)) {
-        name = weekDayEmployeesArray.shift();
-        if (this.#checkLastName(name)) {
-          let nextEmployeeName = weekDayEmployeesArray.shift();
-          weekDayEmployeesArray.unshift(name);
-          name = nextEmployeeName;
-        }
-        weekDayEmployeesArray.push(name);
-      }
-
-      // 근무 일정 추가
-      this.#schedule.push({ month, day: curDay, dayWeek: DAYWEEK[curDayWeekIdx], name });
-
-      // 다음 요일로 업데이트
-      curDayWeekIdx += 1;
+      this.#schedule.push({ month, day: curDay, dayWeek: DAYWEEK[curDayWeekIdx], name }); // 근무 일정 추가
+      curDayWeekIdx += 1; // 다음 요일로 업데이트
       if (curDayWeekIdx >= DAYWEEK.length) curDayWeekIdx = 0;
     }
   }
 
+  #checkAndUpdateNameWeekEnd(name) {
+    name = this.#weekEndEmployeesArray.shift();
+    if (this.#checkLastName(name)) {
+      let nextEmployeeName = this.#weekEndEmployeesArray.shift();
+      this.#weekEndEmployeesArray.unshift(name);
+      name = nextEmployeeName;
+    }
+    this.#weekEndEmployeesArray.push(name);
+    return name;
+  }
+
+  #checkAndUpdateNameWeekDay(name) {
+    name = this.#weekDayEmployeesArray.shift();
+    if (this.#checkLastName(name)) {
+      let nextEmployeeName = this.#weekDayEmployeesArray.shift();
+      this.#weekDayEmployeesArray.unshift(name);
+      name = nextEmployeeName;
+    }
+    this.#weekDayEmployeesArray.push(name);
+    return name;
+  }
+
   /**
    * 주말 또는 공휴일인지 확인
-   * @param {number} curDayWeekIdx ß
+   * @param {number} curDayWeekIdx
    * @param {number} month 
    * @param {string} curDay 
    * @returns {boolean}

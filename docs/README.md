@@ -59,8 +59,8 @@
   - [x] how-to-solve 답변 작성
   - [x] 상수화
   - [x] 공통 로직 분리
-  - [ ] indent depth 2
-  - [ ] 함수 길이 10
+  - [x] indent depth 2
+  - [x] 함수 길이 10
 
 ## 궁금한 점
 

@@ -9,8 +9,8 @@ describe('AssignWorkDay 클래스 테스트', () => {
     const weekEndEmployees = ['수아', '루루', '글로', '솔로스타', '우코', '슬링키', '참새', '도리', '준팍', '도밥', '고니'];
 
     // when
-    const assignWorkDay = new AssignWorkDay();
-    assignWorkDay.assign(month, startDay, weekDayEmployees, weekEndEmployees);
+    const assignWorkDay = new AssignWorkDay(weekDayEmployees, weekEndEmployees);
+    assignWorkDay.assign(month, startDay);
     const schedule = assignWorkDay.getSchedule();
 
     // then

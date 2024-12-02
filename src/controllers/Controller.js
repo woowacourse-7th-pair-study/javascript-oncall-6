@@ -10,8 +10,8 @@ class Controller {
     const { month, startDay } = await this.#getValidatedMonthAndDay();
     const { weekDayEmployees, weekEndEmployees } = await this.#getValidatedWeekdayAndWeekEndEmployees();
     
-    const assignWorkDay = new AssignWorkDay();
-    assignWorkDay.assign(month, startDay, weekDayEmployees, weekEndEmployees);
+    const assignWorkDay = new AssignWorkDay(weekDayEmployees, weekEndEmployees);
+    assignWorkDay.assign(month, startDay);
     OutputView.printSchedule(assignWorkDay.getSchedule());
   }
 
