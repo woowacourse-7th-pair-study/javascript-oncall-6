@@ -1,5 +1,5 @@
-import { ERROR_MESSAGE, SERVICE_CONSTANTS } from '../constants';
-import errorHandler from './ErrorHandler';
+import { ERROR_MESSAGE, SERVICE_CONSTANTS } from '../constants.js';
+import errorHandler from './ErrorHandler.js';
 
 class Validators {
   static checkIsNumber(value) {
@@ -15,6 +15,10 @@ class Validators {
 
   static checkIsDayName(value) {
     errorHandler(!WEEK_NAME.includes(value), ERROR_MESSAGE.wrongWeekName);
+  }
+
+  static checkDuplicated(value) {
+    errorHandler(new Set(value).size != value.length, ERROR_MESSAGE.duplicatedWorkerName);
   }
 
   static checkNameLength(value) {
