@@ -9,20 +9,28 @@ class EmergencyDutyController {
   constructor() {}
 
   async init() {
-    const startMonthAndDay = await Input.getStartMonthAndDay()((input) => {
+    const startMonthAndDay = await this.#getValidatedStartMonthAndDay();
+
+    const weekdayStaff = await this.#getValidatedWeekdayStaff();
+
+    Console.print(startMonthAndDay);
+    Console.print(weekdayStaff);
+  }
+
+  #getValidatedStartMonthAndDay() {
+    return Input.getStartMonthAndDay()((input) => {
       const parsedInput = parseInputWithSeparator(input, INPUT_SEPARATOR);
       validateMonthAndDayInput(parsedInput);
       return [Number(parsedInput[0]), parsedInput[1]];
     });
+  }
 
-    const weekdayStaff = await Input.getWeekdayStaffInput()((input) => {
+  #getValidatedWeekdayStaff() {
+    return Input.getWeekdayStaffInput()((input) => {
       const parsedInput = parseInputWithSeparator(input, INPUT_SEPARATOR);
       validateWeekdayStaffInput(parsedInput);
       return parsedInput;
     });
-
-    Console.print(startMonthAndDay);
-    Console.print(weekdayStaff);
   }
 }
 
