@@ -22,11 +22,7 @@ class AssignWorkDay {
     for (let curDay = 1; curDay <= LAST_DAY[month]; curDay++) {
       let name = '';
 
-      // 휴일 or 공휴일
-      if (
-        WEEKEND.includes(DAYWEEK[curDayWeekIdx])
-        || (HOLIDAY[month] && HOLIDAY[month].includes(curDay))
-      ) {
+      if (this.#checkHoliday(curDayWeekIdx, month, curDay)) {
         name = weekEndEmployeesArray.shift();
         if (this.#checkLastName(name)) {
           let nextEmployeeName = weekEndEmployeesArray.shift();
@@ -34,10 +30,7 @@ class AssignWorkDay {
           name = nextEmployeeName;
         }
         weekEndEmployeesArray.push(name);
-      }
-
-      // 평일
-      else if (WEEKDAY.includes(DAYWEEK[curDayWeekIdx])) {
+      } else if (this.#checkWeekday(curDayWeekIdx)) {
         name = weekDayEmployeesArray.shift();
         if (this.#checkLastName(name)) {
           let nextEmployeeName = weekDayEmployeesArray.shift();
@@ -54,6 +47,26 @@ class AssignWorkDay {
       curDayWeekIdx += 1;
       if (curDayWeekIdx >= DAYWEEK.length) curDayWeekIdx = 0;
     }
+  }
+
+  /**
+   * 주말 또는 공휴일인지 확인
+   * @param {number} curDayWeekIdx ß
+   * @param {number} month 
+   * @param {string} curDay 
+   * @returns {boolean}
+   */
+  #checkHoliday(curDayWeekIdx, month, curDay) {
+    return WEEKEND.includes(DAYWEEK[curDayWeekIdx]) || (HOLIDAY[month] && HOLIDAY[month].includes(curDay));
+  }
+
+  /**
+   * 평일인지 확인
+   * @param {number} curDayWeekIdx
+   * @returns {boolean}
+   */
+  #checkWeekday(curDayWeekIdx) {
+    return WEEKDAY.includes(DAYWEEK[curDayWeekIdx]);
   }
 
   /**
