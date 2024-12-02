@@ -21,7 +21,14 @@ export default class Scheduler {
       let holiday = "";
       if (this.isPrintHoliday(day, isPublicHoliday)) holiday = "(휴일)";
       const string =
-        this.#month + "월" + (index + 1) + "일" + "day" + holiday + worker;
+        this.#month +
+        "월 " +
+        (index + 1) +
+        "일 " +
+        day +
+        holiday +
+        " " +
+        worker;
       return string;
     });
   }

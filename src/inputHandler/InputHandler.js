@@ -1,6 +1,6 @@
 import Validate from "../validate/Validate.js";
 import InputView from "../View/InputView.js";
-import { Console } from "@woowacourse/mission-utils";
+import { MissionUtils } from "@woowacourse/mission-utils";
 export default class InputHandler {
   constructor() {}
 
@@ -19,7 +19,7 @@ export default class InputHandler {
 
       return inputArr;
     } catch (e) {
-      Console.print(e.message);
+      MissionUtils.Console.print(e.message);
       return await this.monthAndStartDay();
     }
   }
@@ -32,7 +32,7 @@ export default class InputHandler {
         Validate.nickName(name);
         return name;
       });
-
+      Validate.orderArr(inputArr);
       return inputArr;
     } catch (e) {
       throw new Error(e);
@@ -47,7 +47,7 @@ export default class InputHandler {
         Validate.nickName(name);
         return name;
       });
-
+      Validate.orderArr(inputArr);
       return inputArr;
     } catch (e) {
       throw new Error(e);
@@ -57,13 +57,12 @@ export default class InputHandler {
     try {
       const weekdayOrder = await this.weekdayOrder();
       const holidayOrder = await this.holidayOrder();
-      Validate.orderArr(weekdayOrder);
-      Validate.orderArr(holidayOrder);
+
       Validate.sameWorker(weekdayOrder, holidayOrder);
 
       return { weekdayOrder, holidayOrder };
     } catch (e) {
-      Console.print(e.message);
+      MissionUtils.Console.print(e.message);
       return await this.Order();
     }
   }

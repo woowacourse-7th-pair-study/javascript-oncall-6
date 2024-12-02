@@ -7,8 +7,7 @@ export default class Controller {
 
   async play() {
     const [month, startDay] = await InputHandler.monthAndStartDay();
-    const weekdayOrder = await InputHandler.weekdayOrder();
-    const holidayOrder = await InputHandler.holidayOrder();
+    const { weekdayOrder, holidayOrder } = await InputHandler.Order();
     const calendar = new Calendar(month, startDay);
     const thisMonthCalendar = calendar.generateCalendar();
     const scheduler = new Scheduler(

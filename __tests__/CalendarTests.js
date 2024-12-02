@@ -8,7 +8,7 @@ describe("Calendar 객체 테스트", () => {
     expect(calendar.isPublicHoliday(10)).toBeFalsy();
   });
   test("알맞은 day 얻는지 테스트", () => {
-    const calendar = new Calendar([6, "금"]);
+    const calendar = new Calendar(6, "금");
     expect(calendar.getDay(2)).toBe("토");
     expect(calendar.getDay(3)).toBe("일");
     expect(calendar.getDay(4)).toBe("월");

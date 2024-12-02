@@ -13,7 +13,7 @@ export default class Validate {
     if (month % 1 !== 0) {
       throw new Error("[ERROR] 알맞은 형식이 아닙니다");
     }
-    if (month < 0 || month > 12) {
+    if (month < 1 || month > 12) {
       throw new Error("[ERROR] 1~12 사이 숫자를 입력해주세요");
     }
   }
@@ -39,7 +39,7 @@ export default class Validate {
       throw new Error("[ERROR] 5명 이상을 입력해주세요");
     }
     if (orderArr.length > 35) {
-      throw new Error("[ERROR] 35명 이하를 입력해주세요");
+      throw new Error("[ERROR] 34명 이하를 입력해주세요");
     }
   }
   static sameWorker(orderArr1, orderArr2) {
