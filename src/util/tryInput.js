@@ -6,7 +6,7 @@ const tryInput = async (inputFn) => {
     return input;
   } catch (e) {
     Console.print(e.message);
-    return await inputFn();
+    return await tryInput(() => inputFn());
   }
 };
 
