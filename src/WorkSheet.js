@@ -1,5 +1,6 @@
 import { DAY_OF_WEEK, HOLIDAY, MONTH_LENGTH } from "./constant/daysInfo.js";
 import { ERROR_MESSAGE } from "./constant/message.js";
+import { MONTH_RANGE } from "./constant/rule.js";
 import { isInRange, isNumber, splitStringAndTrim, getDayOffString } from "./util.js";
 
 class WorkSheet {
@@ -24,7 +25,8 @@ class WorkSheet {
 
   #validateMonth(parsedMonth) {
     if (!isNumber(parsedMonth)) throw new Error(ERROR_MESSAGE.monthNotNumber);
-    if (!isInRange(parsedMonth, 1, 12)) throw new Error(ERROR_MESSAGE.monthNotInRange);
+    if (!isInRange(parsedMonth, MONTH_RANGE.min, MONTH_RANGE.max))
+      throw new Error(ERROR_MESSAGE.monthNotInRange);
   }
 
   #validateDayOfWeek(dayOfWeekInput) {
