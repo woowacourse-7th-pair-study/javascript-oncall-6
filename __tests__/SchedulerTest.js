@@ -1,4 +1,5 @@
 import Scheduler from "../src/model/Scheduler";
+import { Console } from "@woowacourse/mission-utils";
 const mockCalendar = [
   { day: "월", isPublicHoliday: false },
   { day: "화", isPublicHoliday: false },
@@ -11,7 +12,7 @@ const mockCalendar = [
   { day: "화", isPublicHoliday: false },
   { day: "수", isPublicHoliday: false },
 ];
-const mockSchedulerWithoutDouble = [
+const mockSchedulerWithoutDoubleCheck = [
   { day: "월", isPublicHoliday: false, worker: "일일" },
   { day: "화", isPublicHoliday: false, worker: "이이" },
   { day: "수", isPublicHoliday: true, worker: "일일" },
@@ -36,7 +37,17 @@ describe("Scheduler 객체 테스트", () => {
     expect(scheduler.getholidayWorker(6)).toBe("이이");
     expect(scheduler.getholidayWorker(1)).toBe("이이");
   });
+  const schedulerWithoutDoubleCheck =
+    scheduler.generateSchedulerWithoutDoubleCheck();
   test("연속 고려안한 스케쥴러 잘 생성하는지 확인", () => {
-    expect(scheduler.scheduler).toEqual(mockSchedulerWithoutDouble);
+    expect(schedulerWithoutDoubleCheck).toEqual(
+      mockSchedulerWithoutDoubleCheck
+    );
+  });
+  test("연속 근무인지 체크", () => {
+    expect(scheduler.checkDouble(schedulerWithoutDoubleCheck, 7)).toBeTruthy();
+  });
+  test("연속 근무시 스케쥴 잘 바꾸는지 확인", () => {
+    expect(scheduler.scheduler[7].worker).toEqual("오오");
   });
 });
