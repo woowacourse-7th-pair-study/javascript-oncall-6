@@ -14,6 +14,12 @@ const errorCase = [
     dayInputs: ['월', '월'],
     errorMessage: ERROR_MESSAGE.monthNotInRange,
   },
+  {
+    caseName: '요일이 일, 월, 화, 수, 목, 금, 토 중 하나가 아닌 경우',
+    monthInputs: ['1', '1'],
+    dayInputs: ['하', 'hi'],
+    errorMessage: ERROR_MESSAGE.dayOfWeekInvalid,
+  },
 ];
 
 test.each(errorCase)(
