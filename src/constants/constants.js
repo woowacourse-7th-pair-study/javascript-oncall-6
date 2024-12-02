@@ -5,3 +5,28 @@ export const INPUT_MESSAGES = Object.freeze({
   WEEKDAY: '평일 비상 근무 순번대로 사원 닉네임을 입력하세요> ',
   WEEKEND: '휴일 비상 근무 순번대로 사원 닉네임을 입력하세요> ',
 });
+
+export const HOLIDAY = Object.freeze({
+  1: [ 1 ],
+  3: [ 1 ],
+  5: [ 5 ],
+  6: [ 6 ],
+  8: [ 15 ],
+  10: [ 3, 9 ],
+  12: [ 25 ],
+});
+
+export const LAST_DAY = Object.freeze({
+  1: 31,
+  2: 28,
+  3: 31,
+  4: 30,
+  5: 31,
+  6: 30,
+  7: 31,
+  8: 31,
+  9: 30,
+  10: 31,
+  11: 30,
+  12: 31,
+});
