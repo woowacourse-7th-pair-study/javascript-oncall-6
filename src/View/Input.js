@@ -1,3 +1,4 @@
+import { Console } from '@woowacourse/mission-utils';
 import { repeatUtilComplete } from '../util/input.js';
 
 class Input {
@@ -8,13 +9,13 @@ class Input {
   }
 
   static getWeekdayStaffInput() {
-    return repeatUtilComplete(
+    return Console.readLineAsync(
       '평일 비상 근무 순번대로 사원 닉네임을 입력하세요> ',
     );
   }
 
   static getWeekendStaffInput() {
-    return repeatUtilComplete(
+    return Console.readLineAsync(
       '휴일 비상 근무 순번대로 사원 닉네임을 입력하세요> ',
     );
   }

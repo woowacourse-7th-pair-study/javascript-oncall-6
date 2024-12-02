@@ -12,8 +12,8 @@ class EmergencyDutyController {
   async init() {
     const startMonthAndDay = await this.#getValidatedStartMonthAndDay();
 
-    const weekdayStaff = await this.#getValidatedWeekdayStaff();
-    const weekendStaff = await this.#getValidatedWeekendStaff(weekdayStaff);
+    const { weekdayStaff, weekendStaff } =
+      await this.#getValidatedEmergencyDutyStaff();
 
     Console.print(startMonthAndDay);
     Console.print(weekdayStaff);
@@ -28,20 +28,33 @@ class EmergencyDutyController {
     });
   }
 
-  #getValidatedWeekdayStaff() {
-    return Input.getWeekdayStaffInput()((input) => {
-      const parsedInput = parseInputWithSeparator(input, INPUT_SEPARATOR);
-      validateWeekdayStaffInput(parsedInput);
-      return parsedInput;
-    });
+  async #getValidatedEmergencyDutyStaff() {
+    try {
+      const weekdayStaff = await this.#getValidatedWeekdayStaff();
+
+      const weekendStaff = await this.#getValidatedWeekendStaff(weekdayStaff);
+
+      return { weekdayStaff, weekendStaff };
+    } catch (error) {
+      Console.print(`${error.message}\n`);
+      return this.#getValidatedEmergencyDutyStaff();
+    }
   }
 
-  #getValidatedWeekendStaff(weekdayStaff) {
-    return Input.getWeekendStaffInput()((input) => {
-      const parsedInput = parseInputWithSeparator(input, INPUT_SEPARATOR);
-      validateWeekendStaffInput(parsedInput, weekdayStaff);
-      return parsedInput;
-    });
+  async #getValidatedWeekdayStaff() {
+    const input = await Input.getWeekdayStaffInput();
+    const parsedInput = parseInputWithSeparator(input, INPUT_SEPARATOR);
+    validateWeekdayStaffInput(parsedInput);
+
+    return parsedInput;
+  }
+
+  async #getValidatedWeekendStaff(weekdayStaff) {
+    const input = await Input.getWeekendStaffInput();
+    const parsedInput = parseInputWithSeparator(input, INPUT_SEPARATOR);
+    validateWeekendStaffInput(parsedInput, weekdayStaff);
+
+    return parsedInput;
   }
 }
 
