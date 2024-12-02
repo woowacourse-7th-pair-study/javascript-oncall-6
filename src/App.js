@@ -1,4 +1,4 @@
-import EmergencyDutyController from './Controller/\bEmergencyDutyController.js';
+import EmergencyDutyController from './Controller/EmergencyDutyController.js';
 
 class App {
   async run() {

@@ -5,9 +5,10 @@ class EmergencyDutyController {
   constructor() {}
 
   async init() {
-    const startMonthAndDay = await Input.getStartMonthAndDay()(
-      (input) => input,
-    );
+    const startMonthAndDay = await Input.getStartMonthAndDay()((input) => {
+      const parsedStartMonthAndDay = input.split(',');
+      return parsedStartMonthAndDay;
+    });
 
     Console.print(startMonthAndDay);
   }
